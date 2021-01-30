@@ -2,12 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:impromptu_generator2/main.dart';
 import 'package:impromptu_generator2/screens/speechToTextScreen.dart';
 import 'package:impromptu_generator2/topics/abstract_topics.dart';
-// import 'package:impromptu_generator2/topics/spar_topics.dart';
+import 'package:impromptu_generator2/userSettings.dart';
 import 'package:impromptu_generator2/widgets/settingCard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
 
@@ -22,12 +23,6 @@ class _SettingScreenState extends State<SettingScreen> {
 
   String _launchUrlIssue =
       'https://docs.google.com/forms/d/e/1FAIpQLSeiwzKDD36LhICQE2BVaHEFSYoxfFGz5QYYc4lGq52WPWAsnA/viewform';
-
-  String iosLink =
-      'https://apps.apple.com/us/app/impromptu-generator/id1529762620';
-
-  String androidLink =
-      'https://play.google.com/store/apps/details?id=com.rohininani.impromptu_generator2';
 
   Future<void> _launchInBrowser(String url) async {
     if (await canLaunch(url)) {
@@ -52,15 +47,11 @@ class _SettingScreenState extends State<SettingScreen> {
     7.toString(),
   ];
 
-  String _themesValue = '2';
 
-  //         () async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String stringValue = prefs.getString('stringValuePrep');
-  //   return stringValue;
-  // }.toString() ??
-  var _themesValue2 = '5';
-  bool playPause = true;
+
+  String _themesValue = '${time1 ??= 2}';
+
+  String _themesValue2 = '${time2 ??= 5}';
 
   @override
   Widget build(BuildContext context) {
@@ -75,15 +66,17 @@ class _SettingScreenState extends State<SettingScreen> {
           backgroundColor: Colors.cyan[50],
         ),
         body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             children: [
               Column(
                 children: [
                   Divider(
                     height: 5,
-                    color: Colors.black,
                     endIndent: 50,
                     indent: 50,
+                    color: Colors.black87,
+                    thickness: 0.5,
                   ),
                   Text(
                     "settings",
@@ -104,7 +97,7 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               Divider(
                 height: 5,
-                color: Colors.black,
+                color: Colors.black87,
                 thickness: 0.5,
               ),
               Column(
@@ -153,11 +146,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     _themesValue = value;
-                                    // addStringToSF() async {
-                                    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    //   prefs.setString('stringValuePrep', _themesValue);
-                                    // }
+                                    time1 = int.parse(_themesValue);
                                   });
+                                  HapticFeedback.lightImpact();
                                 },
                                 items: _themes.map((value) {
                                   return DropdownMenuItem(
@@ -177,7 +168,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   Divider(
                     height: 5,
-                    color: Colors.black,
+                    color: Colors.black87,
                     thickness: 0.5,
                   ),
                 ],
@@ -228,11 +219,9 @@ class _SettingScreenState extends State<SettingScreen> {
                               onChanged: (value3) {
                                 setState(() {
                                   _themesValue2 = value3;
-                                  // addStringToSF() async {
-                                  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  //   prefs.setString('stringValueSpeech', _themesValue);
-                                  // }
+                                  time2 = int.parse(_themesValue2);
                                 });
+                                HapticFeedback.lightImpact();
                               },
                               items: _themes.map((value3) {
                                 return DropdownMenuItem(
@@ -251,7 +240,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   Divider(
                     height: 5,
-                    color: Colors.black,
+                    color: Colors.black87,
                     thickness: 0.5,
                   ),
                 ],
@@ -281,10 +270,6 @@ class _SettingScreenState extends State<SettingScreen> {
                             onChanged: (value) {
                               setState(() {
                                 playPause = value;
-                                // addBoolToSF() async {
-                                //   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                //   prefs.setBool('boolValue', playPause);
-                                // }
                               });
                             },
                             inactiveTrackColor: Colors.blueGrey[500],
@@ -297,7 +282,49 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   Divider(
                     height: 5,
-                    color: Colors.black,
+                    color: Colors.black87,
+                    thickness: 0.5,
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.035,),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                          MediaQuery.of(context).size.width * 0.035),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text(
+                            "Vibrate on Completion",
+                            style: GoogleFonts.poppins(
+                              fontSize:
+                              MediaQuery.of(context).size.width * 0.055,
+                            ),
+                          ),
+                          Spacer(),
+                          Switch.adaptive(
+                            value: vibrate,
+                            onChanged: (value) {
+                              setState(() {
+                                vibrate = value;
+                              });
+                            },
+                            inactiveTrackColor: Colors.blueGrey[500],
+                            activeTrackColor: Colors.cyan[100],
+                            activeColor: Colors.cyan[500],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    height: 5,
+                    color: Colors.black87,
                     thickness: 0.5,
                   ),
                 ],
@@ -350,37 +377,6 @@ class _SettingScreenState extends State<SettingScreen> {
                       subject: "Check out Impromptu Generator!");
                 },
               ),
-              // SettingsCard(
-              //   text: "Spar",
-              //   icon: Icon(Icons.arrow_forward_ios, color: Colors.black,),
-              //   pressIcon: (){
-              //     Navigator.push(context,
-              //         MaterialPageRoute(
-              //             builder:(context){
-              //               String topic1 = SparTopics[random.nextInt(SparTopics.length)];
-              //               String topic2 = SparTopics[random.nextInt(SparTopics.length)];
-              //               String topic3 = SparTopics[random.nextInt(SparTopics.length)];
-              //               if(topic1 == topic2){
-              //                   topic2 = SparTopics[random.nextInt(SparTopics.length)];
-              //                   if(topic1 == topic2){
-              //                     topic2 = SparTopics[random.nextInt(SparTopics.length)];
-              //                     if(topic1 == topic2){
-              //                       topic2 = SparTopics[random.nextInt(SparTopics.length)];
-              //                     }
-              //                   }
-              //               }
-              //               return ChooseTopic(
-              //                 topic1: topic1,
-              //                 topic2: topic2,
-              //                 topic3: topic3,
-              //                 fontSize: 0.06,
-              //                 time1: 1,
-              //                 time2: 1,
-              //               );
-              //             }
-              //         ));
-              //   },
-              // ),
               SettingsCard(
                 text: "More info",
                 icon: Icon(
@@ -391,7 +387,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 pressIcon: () {
                   showAboutDialog(
                       context: context,
-                      applicationVersion: '1.1.6',
+                      applicationVersion: '1.1.8',
                       applicationName: 'Impromptu Generator',
                       applicationIcon: Image.asset('assets/logo_ios.png', scale: 2,),
                       children: [
@@ -415,21 +411,16 @@ class _SettingScreenState extends State<SettingScreen> {
             backgroundColor: Colors.lightBlue[200],
             child: Icon(
               CupertinoIcons.check_mark_circled,
-              color: Colors.black,
-              // "Save",
-              // style: GoogleFonts.poppins(color: Colors.black),
+              color: Colors.black
             ),
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MainScreen(
-                          time1: int.parse(_themesValue),
-                          time2: int.parse(_themesValue2),
-                          playPause: playPause,
-                        )),
-                (route) => false,
-              );
+            onPressed: () async {
+              Navigator.pop(context);
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.setInt('time1', int.parse(_themesValue));
+              prefs.setInt('time2', int.parse(_themesValue2));
+              prefs.setBool('playPause', playPause);
+              prefs.setBool('vibrate', vibrate);
+              HapticFeedback.mediumImpact();
             },
           ),
         ));

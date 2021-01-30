@@ -40,10 +40,9 @@ class SettingsCard extends StatelessWidget {
           ),
           Divider(
             height: 5,
-            color: Colors.black,
+            color: Colors.black87,
             thickness: 0.5,
           ),
-
         ],
       ),
     );

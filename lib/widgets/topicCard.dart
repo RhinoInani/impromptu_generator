@@ -11,9 +11,6 @@ class TopicCard extends StatefulWidget {
     @required this.topic2,
     @required this.topic3,
     @required this.fontSize,
-    @required this.time1,
-    @required this.time2,
-    @required this.playPause,
     @required this.topic,
     @required this.maxLines,
   }) : super(key: key);
@@ -23,9 +20,6 @@ class TopicCard extends StatefulWidget {
   final String topic2;
   final String topic3;
   final double fontSize;
-  final int time1;
-  final int time2;
-  final bool playPause;
   final int maxLines;
 
   @override
@@ -56,6 +50,7 @@ class _TopicCardState extends State<TopicCard> {
           ),
           child: GestureDetector(
             onTap: (){
+              Wakelock.enable();
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) {
@@ -64,9 +59,6 @@ class _TopicCardState extends State<TopicCard> {
                       randomTopic2: widget.topic2,
                       randomTopic3: widget.topic3,
                       fontSize: widget.fontSize,
-                      time: widget.time1,
-                      time2: widget.time2,
-                      playPause: widget.playPause,
                     );
                   })
               );

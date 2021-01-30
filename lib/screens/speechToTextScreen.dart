@@ -4,6 +4,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:highlight_text/highlight_text.dart';
 import 'package:share/share.dart';
@@ -114,7 +115,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
                 splashColor: Colors.transparent,
                 splashRadius: 1,
                 onPressed: () {
-                  Share.share('Speech: $_text, Confidence: $_confidence');
+                  Share.share('Speech: $_text, Confidence: ${_confidence*100}');
                 },
               ),
               SizedBox(
@@ -173,6 +174,9 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
                       ),
                       isReverse: true,
                       onComplete: (){
+                        setState(() {
+                          _isListening = false;
+                        });
                       },
                     ),
                   ),
@@ -207,6 +211,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
   }
 
   void _listen() async {
+    HapticFeedback.mediumImpact();
     if (!_isListening) {
       bool available = await _speech.initialize(
         onStatus: (val) => print('onStatus: $val'),

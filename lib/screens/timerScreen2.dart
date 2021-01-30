@@ -1,15 +1,16 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vibrate/vibrate.dart';
 import 'package:wakelock/wakelock.dart';
+import '../userSettings.dart';
 
 class TimerScreen2 extends StatefulWidget {
-  final time2;
   final randomTopic;
   final fontSize;
-  final bool playPause;
 
-  const TimerScreen2({Key key, this.randomTopic, this.time2, this.fontSize, this.playPause}) : super(key: key);
+  const TimerScreen2({Key key, this.randomTopic, this.fontSize,}) : super(key: key);
 
   @override
   _TimerScreen2State createState() => _TimerScreen2State();
@@ -65,7 +66,7 @@ class _TimerScreen2State extends State<TimerScreen2> {
                 tag: 1,
                 child: CircularCountDownTimer(
                   controller: controller,
-                  duration: widget.time2 * 60,
+                  duration: time2 * 60,
                   width: MediaQuery.of(context).size.height * 0.5,
                   height: MediaQuery.of(context).size.height * 0.35,
                   color: Colors.white,
@@ -77,12 +78,21 @@ class _TimerScreen2State extends State<TimerScreen2> {
                   ),
                   isReverse: true,
                   isReverseAnimation: true,
-                  onComplete: (){
+                  onComplete: () async {
                     Navigator.pop(context);
                     setState(() {
                       change = "Speech Time";
                       Wakelock.disable();
                     });
+                    bool canVibrate = await Vibrate.canVibrate;
+                    final Iterable<Duration> pauses = [
+                      const Duration(milliseconds: 500),
+                      const Duration(milliseconds: 500),
+                    ];
+                    if(canVibrate && vibrate)
+                    {
+                      Vibrate.vibrateWithPauses(pauses);
+                    }
                   },
                 ),
               ),
@@ -90,8 +100,9 @@ class _TimerScreen2State extends State<TimerScreen2> {
           ),
         ),
       ),
-        floatingActionButton: widget.playPause ? FloatingActionButton.extended(
+        floatingActionButton: playPause ? FloatingActionButton.extended(
             onPressed: () {
+              HapticFeedback.mediumImpact();
               setState(() {
                 if (_isPause) {
                   _isPause = false;

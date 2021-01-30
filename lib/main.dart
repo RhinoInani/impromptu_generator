@@ -6,8 +6,9 @@ import 'package:impromptu_generator2/screens/splashScreen.dart';
 import 'package:impromptu_generator2/topics/abstract_topics.dart';
 import 'package:impromptu_generator2/topics/concrete_topics.dart';
 import 'package:impromptu_generator2/topics/quote_topics.dart';
-import 'package:impromptu_generator2/screens/ChooseTopicScreen.dart';
+import 'package:impromptu_generator2/screens/chooseTopicScreen.dart';
 import 'package:impromptu_generator2/screens/setting_screen.dart';
+import 'package:impromptu_generator2/userSettings.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,10 @@ void main() {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
+        dividerTheme: DividerThemeData(
+          color: Colors.black87,
+          thickness: 0.5,
+        ),
       ),
       darkTheme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
@@ -26,11 +31,6 @@ void main() {
 }
 
 class MainScreen extends StatefulWidget {
-  final int time1;
-  final int time2;
-  final bool playPause;
-
-  const MainScreen({Key key, this.time1, this.time2, this.playPause}) : super(key: key);
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -40,28 +40,36 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.black,
+        statusBarColor: Colors.black,
+    ));
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
-    Color textColor;
-    Color mainColor;
-    final Brightness brightnessValue = MediaQuery.of(context).platformBrightness;
-    bool isDark = brightnessValue == Brightness.dark;
-    if(isDark){
-      textColor = Colors.white;
-      mainColor = Color.fromRGBO(22, 65, 122, 0.9);
-    }
-    else{
-      textColor = Colors.black;
-      mainColor = Colors.cyan[50];
-    }
+    Color textColor = Colors.black;
+    Color mainColor = Colors.cyan[50];
+    // final Brightness brightnessValue = MediaQuery.of(context).platformBrightness;
+    // bool isDark = brightnessValue == Brightness.dark;
+    // if(isDark){
+    //   textColor = Colors.black;
+    //   // Color.fromRGBO(20, 70, 90, 20);
+    //   mainColor = Color.fromRGBO(85, 180, 200, 10);
+    //   backgroundImage = "assets/background1.JPG";
+    // }
+    // else{
+    //   backgroundImage = "assets/background1.JPG";
+    //   textColor = Colors.black;
+    //   mainColor = Colors.cyan[50];
+    // }
+
     return Scaffold(
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/background1.JPG"),
+              image: AssetImage(backgroundImage),
               fit: BoxFit.fill,
             ),
         ),
@@ -94,6 +102,8 @@ class _MainScreenState extends State<MainScreen> {
               children: <Widget>[
                 RawMaterialButton(
                   onPressed: () {
+                    // time1 ??= 2;
+                    // time2 ??= 5;
                     var random = Random();
                     Navigator.push(
                         context,
@@ -104,39 +114,18 @@ class _MainScreenState extends State<MainScreen> {
                               String topic3 = ConcreteTopics[random.nextInt(ConcreteTopics.length)];
                               if(topic1 == topic2){
                                 topic2 = ConcreteTopics[random.nextInt(ConcreteTopics.length)];
-                                if(topic1 == topic2){
-                                  topic2 = ConcreteTopics[random.nextInt(ConcreteTopics.length)];
-                                  if(topic1 == topic2){
-                                    topic2 = ConcreteTopics[random.nextInt(ConcreteTopics.length)];
-                                  }
-                                }
                               }
                               if(topic1 == topic3){
                                 topic3 = ConcreteTopics[random.nextInt(ConcreteTopics.length)];
-                                if(topic1 == topic3){
-                                  topic3 = ConcreteTopics[random.nextInt(ConcreteTopics.length)];
-                                  if(topic1 == topic3){
-                                    topic3 = ConcreteTopics[random.nextInt(ConcreteTopics.length)];
-                                  }
-                                }
                               }
                               if(topic2 == topic3){
                                 topic3 = ConcreteTopics[random.nextInt(ConcreteTopics.length)];
-                                if(topic2 == topic3){
-                                  topic3 = ConcreteTopics[random.nextInt(ConcreteTopics.length)];
-                                  if(topic2 == topic3){
-                                    topic3 = ConcreteTopics[random.nextInt(ConcreteTopics.length)];
-                                  }
-                                }
                               }
                               return ChooseTopic(
                                 topic1: topic1,
                                 topic2: topic2,
                                 topic3: topic3,
                                 fontSize: 0.06,
-                                time1: widget.time1 ?? 2,
-                                time2: widget.time2 ?? 5,
-                                playPause: widget.playPause ?? true,
                                 maxLines: 1,
                               );
                             }
@@ -145,7 +134,7 @@ class _MainScreenState extends State<MainScreen> {
                   },
                   animationDuration: Duration(seconds: 10),
                   elevation: 7.0,
-                  fillColor: Colors.cyan[50],
+                  fillColor: mainColor,
                   hoverColor: Colors.blue,
                   focusColor: Colors.blue,
                   highlightColor: Colors.transparent,
@@ -154,7 +143,7 @@ class _MainScreenState extends State<MainScreen> {
                       "concrete",
                       style: GoogleFonts.poppins(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
-                        color: Colors.black,
+                        color: textColor,
                       ),
                   ),
                   padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.11),
@@ -162,19 +151,30 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 RawMaterialButton(
                   onPressed: () {
+                    time1 ??= 2;
+                    time2 ??= 5;
                     var random = Random();
+                    String topic1 = AbstractTopics[random.nextInt(AbstractTopics.length)];
+                    String topic2 = AbstractTopics[random.nextInt(AbstractTopics.length)];
+                    String topic3 = AbstractTopics[random.nextInt(AbstractTopics.length)];
+                    if(topic1 == topic2){
+                      topic2 = AbstractTopics[random.nextInt(AbstractTopics.length)];
+                    }
+                    if(topic1 == topic3){
+                      topic3 = AbstractTopics[random.nextInt(AbstractTopics.length)];
+                    }
+                    if(topic2 == topic3){
+                      topic3 = AbstractTopics[random.nextInt(AbstractTopics.length)];
+                    }
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder:(context){
                               return ChooseTopic(
-                                topic1: AbstractTopics[random.nextInt(AbstractTopics.length)],
-                                topic2: AbstractTopics[random.nextInt(AbstractTopics.length)],
-                                topic3: AbstractTopics[random.nextInt(AbstractTopics.length)],
+                                topic1: topic1,
+                                topic2: topic2,
+                                topic3: topic3,
                                 fontSize: 0.06,
-                                time1: widget.time1 ?? 2,
-                                time2: widget.time2 ?? 5,
-                                playPause: widget.playPause ?? true,
                                 maxLines: 1,
                               );
                             }
@@ -183,7 +183,7 @@ class _MainScreenState extends State<MainScreen> {
                   },
                   animationDuration: new Duration(seconds: 10),
                   elevation: 7.0,
-                  fillColor: Colors.cyan[50],
+                  fillColor: mainColor,
                   hoverColor: Colors.blue,
                   focusColor: Colors.blue,
                   highlightColor: Colors.transparent,
@@ -207,26 +207,37 @@ class _MainScreenState extends State<MainScreen> {
               children: <Widget>[
                 RawMaterialButton(
                   onPressed: () {
+                    time1 ??= 2;
+                    time2 ??= 5;
                     var random = Random();
+                    String topic1 = QuoteTopics[random.nextInt(QuoteTopics.length)];
+                    String topic2 = QuoteTopics[random.nextInt(QuoteTopics.length)];
+                    String topic3 = QuoteTopics[random.nextInt(QuoteTopics.length)];
+                    if(topic1 == topic2){
+                      topic2 = QuoteTopics[random.nextInt(QuoteTopics.length)];
+                    }
+                    if(topic1 == topic3){
+                      topic3 = QuoteTopics[random.nextInt(QuoteTopics.length)];
+                    }
+                    if(topic2 == topic3){
+                      topic3 = QuoteTopics[random.nextInt(QuoteTopics.length)];
+                    }
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder:(context){
                               return ChooseTopic(
-                                topic1: QuoteTopics[random.nextInt(QuoteTopics.length)],
-                                topic2: QuoteTopics[random.nextInt(QuoteTopics.length)],
-                                topic3: QuoteTopics[random.nextInt(QuoteTopics.length)],
+                                topic1: topic1,
+                                topic2: topic2,
+                                topic3: topic3,
                                 fontSize: 0.025,
-                                time1: widget.time1 ?? 2,
-                                time2: widget.time2 ?? 5,
-                                playPause: widget.playPause ?? true,
                                 maxLines: 7,
                               );
                             }
                         )
                     );
                   },
-                  fillColor: Colors.cyan[50],
+                  fillColor: mainColor,
                   hoverColor: Colors.blue,
                   focusColor: Colors.blue,
                   highlightColor: Colors.transparent,
@@ -253,7 +264,7 @@ class _MainScreenState extends State<MainScreen> {
         child: FloatingActionButton(
           splashColor: Colors.transparent,
           foregroundColor: Colors.transparent,
-          backgroundColor: Colors.cyan[50],
+          backgroundColor: mainColor,
           child: Icon(
             Icons.settings,
             size: MediaQuery.of(context).size.height * 0.03,
@@ -269,11 +280,10 @@ class _MainScreenState extends State<MainScreen> {
                     }
                 )
             );
+              HapticFeedback.mediumImpact();
           },
         ),
       ),
     );
   }
 }
-
-

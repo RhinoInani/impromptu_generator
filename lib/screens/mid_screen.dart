@@ -5,11 +5,9 @@ import 'package:impromptu_generator2/screens/timerScreen2.dart';
 
 class MidScreen extends StatelessWidget {
   final randomTopic;
-  final time2;
   final fontSize;
-  final bool playPause;
 
-  const MidScreen({Key key, this.randomTopic, this.time2, this.fontSize, this.playPause}) : super(key: key);
+  const MidScreen({Key key, this.randomTopic, this.fontSize,}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,9 +59,7 @@ class MidScreen extends StatelessWidget {
                           builder:(context){
                             return TimerScreen2(
                               randomTopic: randomTopic,
-                              time2: time2,
                               fontSize: fontSize,
-                              playPause: playPause,
                             );
                           }
                       )

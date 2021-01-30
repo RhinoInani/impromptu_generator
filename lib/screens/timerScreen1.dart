@@ -1,29 +1,27 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:impromptu_generator2/screens/ChooseTopicScreen.dart';
+import 'package:impromptu_generator2/screens/chooseTopicScreen.dart';
 import 'package:impromptu_generator2/screens/mid_screen.dart';
-// import 'package:vibration/vibration.dart';
+import 'package:vibrate/vibrate.dart';
+
+import '../userSettings.dart';
 
 class TimerScreen1 extends StatefulWidget {
   final randomTopic;
   final randomTopic2;
   final randomTopic3;
   final double fontSize;
-  final int time;
-  final int time2;
-  final bool playPause;
 
   const TimerScreen1(
       {Key key,
       this.randomTopic,
       this.fontSize,
-      this.time,
-      this.time2,
       this.randomTopic2,
       this.randomTopic3,
-      this.playPause})
+      })
       : super(key: key);
 
   @override
@@ -77,7 +75,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
                   tag: 1,
                   child: CircularCountDownTimer(
                     controller: controller,
-                    duration: widget.time < 7 ? widget.time*60 : widget.time,
+                    duration: time1*60,
                     width: MediaQuery.of(context).size.height * 0.5,
                     height: MediaQuery.of(context).size.height * 0.35,
                     color: Colors.white,
@@ -94,18 +92,18 @@ class _TimerScreen1State extends State<TimerScreen1> {
                           MaterialPageRoute(builder: (context) {
                         return MidScreen(
                           randomTopic: widget.randomTopic,
-                          time2: widget.time2,
                           fontSize: widget.fontSize,
-                          playPause: widget.playPause,
                         );
                       }));
-                      // if (await Vibration.hasCustomVibrationsSupport()) {
-                      //   Vibration.vibrate(duration: 1000);
-                      // } else {
-                      //   Vibration.vibrate();
-                      //   await Future.delayed(Duration(milliseconds: 500));
-                      //   Vibration.vibrate();
-                      // }
+                      bool canVibrate = await Vibrate.canVibrate;
+                      final Iterable<Duration> pauses = [
+                        const Duration(milliseconds: 500),
+                        const Duration(milliseconds: 500),
+                      ];
+                      if(canVibrate && vibrate)
+                        {
+                          Vibrate.vibrateWithPauses(pauses);
+                        }
                     },
                   ),
                 ),
@@ -145,10 +143,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
                             topic1: widget.randomTopic,
                             topic2: widget.randomTopic2,
                             topic3: widget.randomTopic3,
-                            time1: widget.time,
-                            time2: widget.time2,
                             fontSize: widget.fontSize,
-                            playPause: widget.playPause,
                           );
                         }));
                         print(int.parse((controller.getTime().substring(0,0)*60)+(controller.getTime().substring(3,4))));
@@ -178,7 +173,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
             ),
           ),
         ),
-        floatingActionButton: widget.playPause
+        floatingActionButton: playPause
             ? FloatingActionButton.extended(
                 elevation: 5,
                 onPressed: () {
@@ -191,6 +186,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
                       controller.pause();
                     }
                   });
+                  HapticFeedback.mediumImpact();
                 },
                 icon: Icon(_isPause ? Icons.play_arrow : Icons.pause),
                 label: Text(

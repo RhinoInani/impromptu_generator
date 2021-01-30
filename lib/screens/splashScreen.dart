@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:impromptu_generator2/main.dart';
+import 'package:impromptu_generator2/userSettings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -13,18 +16,35 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(milliseconds: 1500), () =>
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context){
-              return MainScreen(
-                time1: 2,
-                time2: 5,
-                playPause: true,
-              );
-            }
-            )
-        )
+    Timer(Duration(milliseconds: 1500), () {
+      _getDataFromSharedPrefs() async{
+        final prefs = await SharedPreferences.getInstance();
+        if(prefs.getInt('time1') == null) {
+          prefs.setInt('time1', 2);
+        }
+        if(prefs.getInt('time2') == null) {
+          prefs.setInt('time2', 5);
+        }
+        if(prefs.getBool('playPause') == null){
+            prefs.setBool('playPause', true);
+        }
+        if(prefs.getBool('vibrate') == null){
+          prefs.setBool('vibrate', true);
+        }
+        playPause = prefs.getBool('playPause');
+        vibrate = prefs.getBool('vibrate');
+        time1 = prefs.getInt('time1');
+        time2 = prefs.getInt('time2');
+      }
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context){
+            _getDataFromSharedPrefs();
+            return MainScreen();
+          }
+          )
+      );
+    }
     );
   }
   @override
