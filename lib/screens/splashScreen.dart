@@ -15,14 +15,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  News news = News();
-  List<ArticleModel> articles = List<ArticleModel>();
-
-  getNews() async {
-    News newsClass = News();
-    await newsClass.getNews();
-    articles = newsClass.news;
-  }
+  // News news = News();
+  // List<ArticleModel> articles = List<ArticleModel>();
+  //
+  // getNews() async {
+  //   News newsClass = News();
+  //   await newsClass.getNews();
+  //   articles = newsClass.news;
+  // }
 
   @override
   void initState() {
@@ -45,13 +45,21 @@ class _SplashScreenState extends State<SplashScreen> {
         if (prefs.getStringList('customTopics') == null) {
           prefs.setStringList('customTopics', []);
         }
+        if (prefs.getBool('customTime1') == null) {
+          prefs.setBool('customTime1', false);
+        }
+        if (prefs.getBool('customTime2') == null) {
+          prefs.setBool('customTime2', false);
+        }
         // if (DateTime.now().isAfter(date)) {}
+        customTime1 = prefs.getBool('customTime1');
+        customTime2 = prefs.getBool('customTime2');
         playPause = prefs.getBool('playPause');
         vibrate = prefs.getBool('vibrate');
         time1 = prefs.getInt('time1');
         time2 = prefs.getInt('time2');
         customTopics = prefs.getStringList('customTopics');
-        print(articles[0]);
+        // print(articles[0]);
       }
 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
@@ -142,34 +150,34 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-class News {
-  List<ArticleModel> news = [];
-
-  Future<void> getNews() async {
-    String url =
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=ca1bdfa3a57f4e3fb377c79ce6d05a81";
-    var response = await http.get(url);
-
-    var jsonData = jsonDecode(response.body);
-
-    if (jsonData['status'] == "ok") {
-      jsonData['articles'].forEach((element) {
-        if (element['description'] == null) {
-          ArticleModel articleModel = ArticleModel(
-              title: element['title'],
-              url: element['url'],
-              description: element['description']);
-          news.add(ArticleModel());
-        }
-      });
-    }
-  }
-}
-
-class ArticleModel {
-  String title;
-  String url;
-  String description;
-
-  ArticleModel({this.title, this.url, this.description});
-}
+// class News {
+//   List<ArticleModel> news = [];
+//
+//   Future<void> getNews() async {
+//     String url =
+//         "https://newsapi.org/v2/top-headlines?country=us&apiKey=ca1bdfa3a57f4e3fb377c79ce6d05a81";
+//     var response = await http.get(url);
+//
+//     var jsonData = jsonDecode(response.body);
+//
+//     if (jsonData['status'] == "ok") {
+//       jsonData['articles'].forEach((element) {
+//         if (element['description'] == null) {
+//           ArticleModel articleModel = ArticleModel(
+//               title: element['title'],
+//               url: element['url'],
+//               description: element['description']);
+//           news.add(ArticleModel());
+//         }
+//       });
+//     }
+//   }
+// }
+//
+// class ArticleModel {
+//   String title;
+//   String url;
+//   String description;
+//
+//   ArticleModel({this.title, this.url, this.description});
+// }

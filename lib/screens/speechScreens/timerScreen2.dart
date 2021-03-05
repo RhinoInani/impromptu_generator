@@ -68,7 +68,7 @@ class _TimerScreen2State extends State<TimerScreen2> {
                   tag: 1,
                   child: CircularCountDownTimer(
                     controller: controller,
-                    duration: time2 * 60,
+                    duration: !customTime2 ? time2 * 60 : time2,
                     width: MediaQuery.of(context).size.height * 0.5,
                     height: MediaQuery.of(context).size.height * 0.35,
                     color: Colors.white,

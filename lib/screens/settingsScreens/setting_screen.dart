@@ -46,11 +46,109 @@ class _SettingScreenState extends State<SettingScreen> {
     5.toString(),
     6.toString(),
     7.toString(),
+    'C',
   ];
 
-  String _themesValue = '${time1 ??= 2}';
+  String _themesValue = '${customTime1 == true ? 'C' : time1 ??= 2}';
 
-  String _themesValue2 = '${time2 ??= 5}';
+  String _themesValue2 = '${customTime2 == true ? 'C' : time2 ??= 5}';
+
+  void modalPopUpCustomTime(context, int defaultTime) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        Size size = MediaQuery.of(context).size;
+        int localTime = 0;
+        return Container(
+          padding: EdgeInsets.only(
+            left: 10,
+            right: 10,
+            top: 10,
+            bottom: 20,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "Custom Time",
+                    style: TextStyle(fontSize: size.width * 0.05),
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      defaultTime == 2
+                          ? customTime1 = false
+                          : customTime2 = false;
+                    },
+                  ),
+                ],
+              ),
+              Divider(
+                height: 10,
+                indent: 10,
+                endIndent: 10,
+                color: Colors.black87,
+                thickness: 0.5,
+              ),
+              CupertinoTimerPicker(
+                mode: CupertinoTimerPickerMode.ms,
+                onTimerDurationChanged: (Duration newDuration) {
+                  localTime = newDuration.inSeconds;
+                },
+                initialTimerDuration:
+                    Duration(minutes: defaultTime, seconds: 0),
+              ),
+              GestureDetector(
+                onTap: () {
+                  if (localTime > 0) {
+                    Navigator.of(context).pop();
+                    defaultTime == 2 ? time1 = localTime : time2 = localTime;
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(28),
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 0.7,
+                    ),
+                  ),
+                  width: size.width * 0.6,
+                  height: size.height * 0.07,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Confirm",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                            color: Colors.black, fontSize: size.width * 0.04),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      isScrollControlled: true,
+      isDismissible: false,
+      enableDrag: true,
+      elevation: 15,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(MediaQuery.of(context).size.height * 0.02),
+            topRight:
+                Radius.circular(MediaQuery.of(context).size.height * 0.02)),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,8 +243,15 @@ class _SettingScreenState extends State<SettingScreen> {
                                     color: Colors.black, fontSize: 17.0),
                                 onChanged: (value) {
                                   setState(() {
-                                    _themesValue = value;
-                                    time1 = int.parse(_themesValue);
+                                    if (value == 'C') {
+                                      _themesValue = value;
+                                      modalPopUpCustomTime(context, 2);
+                                      customTime1 = true;
+                                    } else {
+                                      customTime1 = false;
+                                      _themesValue = value;
+                                      time1 = int.parse(_themesValue);
+                                    }
                                   });
                                   HapticFeedback.lightImpact();
                                 },
@@ -216,8 +321,15 @@ class _SettingScreenState extends State<SettingScreen> {
                                   color: Colors.black, fontSize: 17.0),
                               onChanged: (value3) {
                                 setState(() {
-                                  _themesValue2 = value3;
-                                  time2 = int.parse(_themesValue2);
+                                  if (value3 == 'C') {
+                                    _themesValue2 = value3;
+                                    modalPopUpCustomTime(context, 5);
+                                    customTime2 = true;
+                                  } else {
+                                    customTime2 = false;
+                                    _themesValue2 = value3;
+                                    time2 = int.parse(_themesValue2);
+                                  }
                                 });
                                 HapticFeedback.lightImpact();
                               },
@@ -400,7 +512,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 pressIcon: () {
                   showAboutDialog(
                       context: context,
-                      applicationVersion: '1.1.9',
+                      applicationVersion: '1.2.0',
                       applicationName: 'Impromptu Generator',
                       applicationIcon: Image.asset(
                         'assets/logo_ios.png',
@@ -434,8 +546,10 @@ class _SettingScreenState extends State<SettingScreen> {
             onPressed: () async {
               Navigator.pop(context);
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.setInt('time1', int.parse(_themesValue));
-              prefs.setInt('time2', int.parse(_themesValue2));
+              prefs.setBool('customTime1', customTime1);
+              prefs.setBool('customTime2', customTime2);
+              prefs.setInt('time1', time1);
+              prefs.setInt('time2', time2);
               prefs.setBool('playPause', playPause);
               prefs.setBool('vibrate', vibrate);
               prefs.setStringList('customTopics', customTopics);

@@ -28,119 +28,117 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
       context: context,
       builder: (BuildContext bc) {
         return Container(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 10,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(fontSize: size.width * 0.05),
-                    ),
-                    Spacer(),
-                    IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        textController.clear();
-                      },
-                    ),
-                  ],
-                ),
-                Divider(
-                  height: 10,
-                  indent: 10,
-                  endIndent: 10,
-                  color: Colors.black87,
-                  thickness: 0.5,
-                ),
-                SizedBox(
-                  height: size.height * 0.10,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
+          padding: EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 10,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(fontSize: size.width * 0.05),
                   ),
-                  child: TextField(
-                    controller: textController,
-                    keyboardType: TextInputType.text,
-                    textAlign: TextAlign.center,
-                    textCapitalization: TextCapitalization.sentences,
-                    maxLength: 200,
-                    maxLengthEnforced: true,
-                    decoration: InputDecoration(
-                      hintText: "Enter a topic",
-                      labelStyle: GoogleFonts.poppins(
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      textController.clear();
+                    },
+                  ),
+                ],
+              ),
+              Divider(
+                height: 10,
+                indent: 10,
+                endIndent: 10,
+                color: Colors.black87,
+                thickness: 0.5,
+              ),
+              SizedBox(
+                height: size.height * 0.10,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                child: TextField(
+                  controller: textController,
+                  keyboardType: TextInputType.text,
+                  textAlign: TextAlign.center,
+                  textCapitalization: TextCapitalization.sentences,
+                  maxLength: 200,
+                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                  decoration: InputDecoration(
+                    hintText: "Enter a topic",
+                    labelStyle: GoogleFonts.poppins(
+                      color: Colors.black,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28),
+                      borderSide: BorderSide(color: Colors.black),
+                      gapPadding: 10,
+                    ),
+                    errorStyle: GoogleFonts.poppins(
+                      color: Colors.red,
+                    ),
+                    errorBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                      color: Colors.red,
+                    )),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(28),
+                      borderSide: BorderSide(
                         color: Colors.black,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(28),
-                        borderSide: BorderSide(color: Colors.black),
-                        gapPadding: 10,
-                      ),
-                      errorStyle: GoogleFonts.poppins(
+                      gapPadding: 10,
+                    ),
+                    focusedErrorBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
                         color: Colors.red,
                       ),
-                      errorBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                        color: Colors.red,
-                      )),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(28),
-                        borderSide: BorderSide(
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: size.height * 0.05,
+              ),
+              GestureDetector(
+                onTap: press,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue[100],
+                    borderRadius: BorderRadius.circular(28),
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 0.7,
+                    ),
+                  ),
+                  width: size.width * 0.6,
+                  height: size.height * 0.07,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        buttonText,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
                           color: Colors.black,
                         ),
-                        gapPadding: 10,
                       ),
-                      focusedErrorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: size.height * 0.05,
-                ),
-                GestureDetector(
-                  onTap: press,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blue[100],
-                      borderRadius: BorderRadius.circular(28),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 0.7,
-                      ),
-                    ),
-                    width: size.width * 0.6,
-                    height: size.height * 0.07,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          buttonText,
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.05,
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: size.height * 0.05,
+              ),
+            ],
           ),
         );
       },
@@ -272,7 +270,7 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                       customTopics.removeAt(index);
                     });
                     HapticFeedback.mediumImpact();
-                    Scaffold.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: Duration(milliseconds: 800),
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -310,7 +308,7 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
           backgroundColor: Colors.blue,
           onPressed: () async {
             if (customTopics.length < 3) {
-              Scaffold.of(context).showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   duration: Duration(milliseconds: 1100),
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -344,166 +342,3 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
     );
   }
 }
-// body: Column(
-//   crossAxisAlignment: CrossAxisAlignment.center,
-//   children: [
-//     Expanded(
-//         child: Padding(
-//           padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-//           child: GridView.builder(
-//             itemCount: customTopics.length,
-//               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                 crossAxisCount: 1,
-//                 childAspectRatio: 2.5,
-//               ),
-//               itemBuilder: (context, index){
-//                 return CustomTopicCard(
-//                   topic: customTopics[index],
-//                   type: customTypes[index],
-//                   press: (){},
-//                 );
-//               },
-//           ),
-//         ),
-//     ),
-//   ],
-// ),
-
-// body: Padding(
-//   padding: EdgeInsets.symmetric(
-//       horizontal: size.width * 0.05,
-//     vertical: size.height * 0.15,
-//   ),
-//   child: SingleChildScrollView(
-//     child: Column(
-//       children: [
-//         Container(
-//           padding: EdgeInsets.only(left: 16, right: 16),
-//           decoration: BoxDecoration(
-//               border: Border.all(color: Colors.black),
-//               borderRadius: BorderRadius.circular(30)),
-//           child: Padding(
-//             padding: EdgeInsets.symmetric(
-//               horizontal: MediaQuery.of(context).size.width * 0.035,
-//             ),
-//             child: DropdownButton(
-//               hint: Text(topics[1],
-//                   style: GoogleFonts.poppins()),
-//               dropdownColor: Colors.grey[100],
-//               underline: Container(),
-//               elevation: 5,
-//               icon: Icon(Icons.arrow_drop_down),
-//               iconSize:
-//               MediaQuery.of(context).size.height * 0.04,
-//               isExpanded: false,
-//               value: dropDownValue,
-//               style: TextStyle(
-//                   color: Colors.black, fontSize: 17.0
-//               ),
-//               onChanged: (value) {
-//                 setState(() {
-//                   dropDownValue = value;
-//                 });
-//                 for(int i = 0; i < userTopicsAbstract.length; i++){
-//                   print(userTopicsAbstract[i]);
-//                 }
-//                 HapticFeedback.lightImpact();
-//               },
-//               items: topics.map((value) {
-//                 return DropdownMenuItem(
-//                   value: value,
-//                   child: Text(
-//                     value,
-//                     style: GoogleFonts.poppins(),
-//                   ),
-//                 );
-//               }).toList(),
-//             ),
-//           ),
-//         ),
-//         SizedBox(
-//           height: size.height * 0.15,
-//         ),
-//         TextFormField(
-//           controller: textController,
-//           keyboardType: TextInputType.text,
-//           textAlign: TextAlign.center,
-//           decoration: InputDecoration(
-//             hintText: "Enter a topic",
-//             labelStyle: GoogleFonts.poppins(
-//               color: Colors.black,
-//             ),
-//             enabledBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(28),
-//               borderSide: BorderSide(
-//                   color: Colors.black
-//               ),
-//               gapPadding: 10,
-//             ),
-//             errorStyle: GoogleFonts.poppins(
-//               color: Colors.red,
-//             ),
-//             errorBorder: UnderlineInputBorder(
-//                 borderSide: BorderSide(
-//                   color:  Colors.red,
-//                 )
-//             ),
-//             focusedBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(28),
-//               borderSide: BorderSide(
-//                   color: Colors.black,
-//               ),
-//               gapPadding: 10,
-//             ),
-//             focusedErrorBorder: UnderlineInputBorder(
-//               borderSide: BorderSide(
-//                 color:  Colors.red,
-//               ),
-//             ),
-//           ),
-//         ),
-//         SizedBox(
-//           height: size.height * 0.05,
-//         ),
-//         GestureDetector(
-//           onTap: (){
-//             if(dropDownValue.toString()=="Abstract Topics"){
-//               userTopicsAbstract.add(textController.text);
-//             }
-//             else if(dropDownValue.toString()=="Concrete Topics"){
-//               userTopicsConcrete.add(textController.text);
-//             }
-//             else if(dropDownValue.toString()=="Quote Topics"){
-//               userTopicsQuote.add(textController.text);
-//             }
-//           },
-//           child: Container(
-//             decoration: BoxDecoration(
-//               color: Colors.cyan[100],
-//               borderRadius: BorderRadius.circular(28),
-//               border: Border.all(
-//                 color: Colors.black,
-//                 width: 0.7,
-//               ),
-//             ),
-//             width: size.width* 0.6,
-//             height: size.height * 0.07,
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: [
-//                 Text(
-//                     "Add Topic",
-//                   textAlign: TextAlign.center,
-//                   style: GoogleFonts.poppins(
-//                     color: Colors.black,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ],
-//     ),
-//   ),
-// ),
