@@ -1,4 +1,4 @@
-# impromptu_generator
+# Impromptu Generator
 
 * Copyright: Rohin Inani 2021
 
