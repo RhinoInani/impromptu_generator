@@ -1,13 +1,14 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:impromptu_generator2/screens/settingsScreens/setting_screen.dart';
+import 'package:impromptu_generator2/screens/speechScreens/chooseTopicScreen.dart';
 import 'package:impromptu_generator2/screens/splashScreen.dart';
 import 'package:impromptu_generator2/topics/abstract_topics.dart';
 import 'package:impromptu_generator2/topics/concrete_topics.dart';
 import 'package:impromptu_generator2/topics/quote_topics.dart';
-import 'package:impromptu_generator2/screens/speechScreens/chooseTopicScreen.dart';
-import 'package:impromptu_generator2/screens/settingsScreens/setting_screen.dart';
 import 'package:impromptu_generator2/userSettings.dart';
 
 void main() {
@@ -271,7 +272,7 @@ class _MainScreenState extends State<MainScreen> {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return SettingScreen();
             }));
-            HapticFeedback.mediumImpact();
+            HapticFeedback.selectionClick();
           },
         ),
       ),

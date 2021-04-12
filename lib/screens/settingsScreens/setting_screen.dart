@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:impromptu_generator2/components//settingCard.dart';
 import 'package:impromptu_generator2/screens/settingsScreens/customTopicScreen.dart';
+import 'package:impromptu_generator2/screens/settingsScreens/more.dart';
 import 'package:impromptu_generator2/screens/settingsScreens/speechToTextScreen.dart';
 import 'package:impromptu_generator2/topics/abstract_topics.dart';
 import 'package:impromptu_generator2/userSettings.dart';
-import 'package:impromptu_generator2/components//settingCard.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
@@ -19,23 +19,6 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  String _launchUrlFeature =
-      'https://docs.google.com/forms/d/e/1FAIpQLSf5-olnauB46sExuj4lSoORSJXnLkYJ3tWyfdec-bltiiiNqA/viewform';
-
-  String _launchUrlIssue =
-      'https://docs.google.com/forms/d/e/1FAIpQLSeiwzKDD36LhICQE2BVaHEFSYoxfFGz5QYYc4lGq52WPWAsnA/viewform';
-
-  Future<void> _launchInBrowser(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url,
-          forceSafariVC: true,
-          forceWebView: false,
-          headers: <String, String>{'header key': 'header value'});
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   var random = Random();
 
   List _themes = [
@@ -464,28 +447,10 @@ class _SettingScreenState extends State<SettingScreen> {
                 pressIcon: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return SpeechToTextScreen(
-                      time: time2,
                       randomTopic:
                           AbstractTopics[random.nextInt(AbstractTopics.length)],
                     );
                   }));
-                },
-              ),
-              SettingsCard(
-                text: "Report an Issue",
-                icon: Icon(Icons.arrow_forward_ios, color: Colors.black),
-                pressIcon: () {
-                  _launchInBrowser(_launchUrlIssue);
-                },
-              ),
-              SettingsCard(
-                text: "Feature requests",
-                icon: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                ),
-                pressIcon: () {
-                  _launchInBrowser(_launchUrlFeature);
                 },
               ),
               SettingsCard(
@@ -503,32 +468,16 @@ class _SettingScreenState extends State<SettingScreen> {
                 },
               ),
               SettingsCard(
-                text: "More info",
+                text: "More",
                 icon: Icon(
-                  Icons.info_outline,
+                  Icons.arrow_forward_ios,
                   color: Colors.black,
                   size: 25,
                 ),
                 pressIcon: () {
-                  showAboutDialog(
-                      context: context,
-                      applicationVersion: '1.2.0',
-                      applicationName: 'Impromptu Generator',
-                      applicationIcon: Image.asset(
-                        'assets/logo_ios.png',
-                        scale: 2,
-                      ),
-                      children: [
-                        Text(
-                          'Created by Rohin Inani',
-                        ),
-                        Divider(
-                          height: 10,
-                          color: Colors.black,
-                          thickness: 0.5,
-                        ),
-                        Text('rhino.inani@gmail.com'),
-                      ]);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return More();
+                  }));
                 },
               ),
             ],
@@ -553,7 +502,7 @@ class _SettingScreenState extends State<SettingScreen> {
               prefs.setBool('playPause', playPause);
               prefs.setBool('vibrate', vibrate);
               prefs.setStringList('customTopics', customTopics);
-              HapticFeedback.mediumImpact();
+              HapticFeedback.selectionClick();
             },
           ),
         ));

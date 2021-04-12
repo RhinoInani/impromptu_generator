@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,11 +17,6 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final textController = TextEditingController();
 
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
-
   void modalPopUpTopic(
       context, String title, String buttonText, Function press) {
     Size size = MediaQuery.of(context).size;
@@ -32,113 +28,101 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
             horizontal: 10.0,
             vertical: 10,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(fontSize: size.width * 0.05),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      textController.clear();
-                    },
-                  ),
-                ],
-              ),
-              Divider(
-                height: 10,
-                indent: 10,
-                endIndent: 10,
-                color: Colors.black87,
-                thickness: 0.5,
-              ),
-              SizedBox(
-                height: size.height * 0.10,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
+          child: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(fontSize: size.width * 0.05),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        textController.clear();
+                      },
+                    ),
+                  ],
                 ),
-                child: TextField(
-                  controller: textController,
-                  keyboardType: TextInputType.text,
-                  textAlign: TextAlign.center,
-                  textCapitalization: TextCapitalization.sentences,
-                  maxLength: 200,
-                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                  decoration: InputDecoration(
-                    hintText: "Enter a topic",
-                    labelStyle: GoogleFonts.poppins(
-                      color: Colors.black,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide(color: Colors.black),
-                      gapPadding: 10,
-                    ),
-                    errorStyle: GoogleFonts.poppins(
-                      color: Colors.red,
-                    ),
-                    errorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                      color: Colors.red,
-                    )),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                      borderSide: BorderSide(
+                Divider(
+                  height: 10,
+                  indent: 10,
+                  endIndent: 10,
+                  color: Colors.black87,
+                  thickness: 0.5,
+                ),
+                SizedBox(
+                  height: size.height * 0.10,
+                ),
+                Container(
+                  child: TextField(
+                    controller: textController,
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.center,
+                    textCapitalization: TextCapitalization.sentences,
+                    maxLength: 200,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                    decoration: InputDecoration(
+                      hintText: "Enter a topic",
+                      labelStyle: GoogleFonts.poppins(
                         color: Colors.black,
                       ),
-                      gapPadding: 10,
-                    ),
-                    focusedErrorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.red,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(28),
+                        borderSide: BorderSide(color: Colors.black),
+                        gapPadding: 10,
                       ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.05,
-              ),
-              GestureDetector(
-                onTap: press,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blue[100],
-                    borderRadius: BorderRadius.circular(28),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 0.7,
-                    ),
-                  ),
-                  width: size.width * 0.6,
-                  height: size.height * 0.07,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        buttonText,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(28),
+                        borderSide: BorderSide(
                           color: Colors.black,
                         ),
+                        gapPadding: 10,
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: size.height * 0.05,
-              ),
-            ],
+                SizedBox(
+                  height: size.height * 0.05,
+                ),
+                GestureDetector(
+                  onTap: press,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                      borderRadius: BorderRadius.circular(28),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 0.7,
+                      ),
+                    ),
+                    width: size.width * 0.6,
+                    height: size.height * 0.07,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          buttonText,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * 0.05,
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -181,6 +165,7 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                 } else {
                   setState(() {
                     customTopics.add(textController.text);
+                    textController.clear();
                   });
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
@@ -271,12 +256,23 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                     });
                     HapticFeedback.mediumImpact();
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        duration: Duration(milliseconds: 800),
+                        duration: Duration(milliseconds: 1100),
                         content: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Flexible(
                                 child: AutoSizeText("$topic has been removed")),
+                            GestureDetector(
+                              child: Text(
+                                "Undo",
+                                style: TextStyle(color: Colors.blue[600]),
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  customTopics.insert(index, "$topic");
+                                });
+                              },
+                            )
                           ],
                         )));
                     SharedPreferences prefs =

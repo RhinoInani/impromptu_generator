@@ -10,11 +10,13 @@ import 'package:highlight_text/highlight_text.dart';
 import 'package:share/share.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
-class SpeechToTextScreen extends StatefulWidget {
-  @required final int time;
-  @required final String randomTopic;
+import '../../userSettings.dart';
 
-  const SpeechToTextScreen({Key key, this.time, this.randomTopic}) : super(key: key);
+class SpeechToTextScreen extends StatefulWidget {
+  @required
+  final String randomTopic;
+
+  const SpeechToTextScreen({Key key, this.randomTopic}) : super(key: key);
   @override
   _SpeechToTextScreenState createState() => _SpeechToTextScreenState();
 }
@@ -82,12 +84,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
     _speech = stt.SpeechToText();
   }
 
-  void autoPress() {
-    timer = new Timer(Duration(seconds: 10), () {
-      print("prints after 10 seconds");
-    });
-  }
-
+  CountDownController controller = CountDownController();
   String statusText = "";
   bool isComplete = false;
 
@@ -115,7 +112,8 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
                 splashColor: Colors.transparent,
                 splashRadius: 1,
                 onPressed: () {
-                  Share.share('Speech: $_text, Confidence: ${_confidence*100}');
+                  Share.share(
+                      'Speech: $_text, Confidence: ${_confidence * 100}');
                 },
               ),
               SizedBox(
@@ -134,7 +132,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
         repeatPauseDuration: const Duration(milliseconds: 100),
         repeat: true,
         child: FloatingActionButton(
-          backgroundColor: Colors.blue[500],
+          backgroundColor: Colors.blue[600],
           onPressed: _listen,
           child: Icon(
               _isListening ? CupertinoIcons.mic_solid : CupertinoIcons.mic),
@@ -155,17 +153,23 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
                     widget.randomTopic,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
-                        fontSize: MediaQuery.of(context).size.height * 0.05,
+                      fontSize: MediaQuery.of(context).size.height * 0.05,
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: CircularCountDownTimer(
-                      duration: widget.time*60,
+                      controller: controller,
+                      duration: !customTime2 ? time2 * 60 : time2,
                       width: MediaQuery.of(context).size.height * 0.5,
                       height: MediaQuery.of(context).size.height * 0.25,
-                      color: Colors.white,
+                      ringColor: Colors.white,
                       fillColor: Colors.blue,
+                      autoStart: false,
+                      fillGradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.topRight,
+                          colors: [Colors.blue[900], Colors.cyan]),
                       isReverseAnimation: true,
                       strokeWidth: 5.0,
                       textStyle: GoogleFonts.poppins(
@@ -173,7 +177,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
                         color: Colors.black,
                       ),
                       isReverse: true,
-                      onComplete: (){
+                      onComplete: () {
                         setState(() {
                           _isListening = false;
                         });
@@ -198,8 +202,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
                     "currently in beta testing, \nplease report any found issues using the report an issue form",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
-                        fontSize: MediaQuery.of(context).size.height * 0.01
-                    ),
+                        fontSize: MediaQuery.of(context).size.height * 0.01),
                   ),
                 ],
               ),
@@ -218,6 +221,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
         onError: (val) => print('onError: $val'),
       );
       if (available) {
+        controller.start();
         setState(() => _isListening = true);
         _speech.listen(
           onResult: (val) => setState(() {
@@ -229,6 +233,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
         );
       }
     } else {
+      controller.pause();
       setState(() => _isListening = false);
       _speech.stop();
     }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wakelock/wakelock.dart';
+
 import '../../userSettings.dart';
 
 class TimerScreen2 extends StatefulWidget {
@@ -71,9 +72,14 @@ class _TimerScreen2State extends State<TimerScreen2> {
                     duration: !customTime2 ? time2 * 60 : time2,
                     width: MediaQuery.of(context).size.height * 0.5,
                     height: MediaQuery.of(context).size.height * 0.35,
-                    color: Colors.white,
+                    ringColor: Colors.white,
                     fillColor: Colors.blue,
+                    fillGradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.topRight,
+                        colors: [Colors.blue[900], Colors.cyan]),
                     strokeWidth: 5.0,
+                    strokeCap: StrokeCap.round,
                     textStyle: GoogleFonts.poppins(
                       fontSize: MediaQuery.of(context).size.height * 0.06,
                       color: Colors.black,
@@ -102,6 +108,7 @@ class _TimerScreen2State extends State<TimerScreen2> {
         ),
         floatingActionButton: playPause
             ? FloatingActionButton.extended(
+                backgroundColor: Colors.blue[600],
                 onPressed: () {
                   HapticFeedback.mediumImpact();
                   setState(() {

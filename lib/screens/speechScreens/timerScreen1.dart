@@ -83,8 +83,13 @@ class _TimerScreen1State extends State<TimerScreen1> {
                     duration: !customTime1 ? time1 * 60 : time1,
                     width: MediaQuery.of(context).size.height * 0.5,
                     height: MediaQuery.of(context).size.height * 0.35,
-                    color: Colors.white,
+                    ringColor: Colors.white,
+                    fillGradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.topRight,
+                        colors: [Colors.blue[900], Colors.cyan]),
                     fillColor: Colors.blue,
+                    initialDuration: 0,
                     strokeWidth: 5.0,
                     textStyle: GoogleFonts.poppins(
                       fontSize: MediaQuery.of(context).size.height * 0.06,
@@ -92,6 +97,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
                     ),
                     isReverse: true,
                     isReverseAnimation: true,
+                    strokeCap: StrokeCap.round,
                     onComplete: () async {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
@@ -150,9 +156,6 @@ class _TimerScreen1State extends State<TimerScreen1> {
                             fontSize: widget.fontSize,
                           );
                         }));
-                        print(int.parse(
-                            (controller.getTime().substring(0, 0) * 60) +
-                                (controller.getTime().substring(3, 4))));
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -181,6 +184,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
         ),
         floatingActionButton: playPause
             ? FloatingActionButton.extended(
+                backgroundColor: Colors.blue[600],
                 elevation: 5,
                 onPressed: () {
                   setState(() {
