@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:impromptu_generator2/components/settingCard.dart';
-import 'package:impromptu_generator2/main.dart';
+import 'package:impromptu_generator2/screens/splashScreen.dart';
 import 'package:impromptu_generator2/userSettings.dart';
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class More extends StatefulWidget {
@@ -77,20 +79,17 @@ class _MoreState extends State<More> {
               thickness: 0.5,
             ),
             SettingsCard(
-              text: "Report an Issue",
-              icon: Icon(Icons.arrow_forward_ios, color: Colors.black),
-              pressIcon: () {
-                _launchInBrowser(_launchUrlIssue);
-              },
-            ),
-            SettingsCard(
-              text: "Feature requests",
+              text: "Share",
               icon: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.black,
               ),
               pressIcon: () {
-                _launchInBrowser(_launchUrlFeature);
+                Share.share(
+                    'Check out Impromptu Generator! \nA free app for all impromptu speakers to practice and get better! '
+                    'It can also help with speaking anxiety and much more! It is a must have so download with this link: '
+                    '\nhyperurl.co/impromptugenerator',
+                    subject: "Check out Impromptu Generator!");
               },
             ),
             SettingsCard(
@@ -150,16 +149,18 @@ class _MoreState extends State<More> {
                             },
                           ),
                           CupertinoDialogAction(
-                            child: Text(
-                              "Confirm",
-                              style: TextStyle(color: Colors.blue[600]),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(builder: (context) {
-                                return MainScreen();
-                              }));
-                              setState(() {
+                              child: Text(
+                                "Confirm",
+                                style: TextStyle(color: Colors.blue[600]),
+                              ),
+                              onPressed: () async {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(builder: (context) {
+                                  return SplashScreen();
+                                }));
+
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
                                 time1 = 2;
                                 time2 = 5;
                                 playPause = true;
@@ -167,9 +168,16 @@ class _MoreState extends State<More> {
                                 customTime1 = false;
                                 customTime2 = false;
                                 customTopics.clear();
-                              });
-                            },
-                          ),
+                                prefs.setBool('customTime1', customTime1);
+                                prefs.setBool('customTime2', customTime2);
+                                prefs.setInt('time1', time1);
+                                prefs.setInt('time2', time2);
+                                prefs.setBool('playPause', playPause);
+                                prefs.setBool('vibrate', vibrate);
+                                prefs.setStringList(
+                                    'customTopics', customTopics);
+                                HapticFeedback.selectionClick();
+                              }),
                         ],
                       );
                     });

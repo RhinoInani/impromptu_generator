@@ -10,8 +10,8 @@ import 'package:impromptu_generator2/screens/settingsScreens/more.dart';
 import 'package:impromptu_generator2/screens/settingsScreens/speechToTextScreen.dart';
 import 'package:impromptu_generator2/topics/abstract_topics.dart';
 import 'package:impromptu_generator2/userSettings.dart';
-import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
@@ -19,6 +19,23 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  String _launchUrlFeature =
+      'https://docs.google.com/forms/d/e/1FAIpQLSf5-olnauB46sExuj4lSoORSJXnLkYJ3tWyfdec-bltiiiNqA/viewform';
+
+  String _launchUrlIssue =
+      'https://docs.google.com/forms/d/e/1FAIpQLSeiwzKDD36LhICQE2BVaHEFSYoxfFGz5QYYc4lGq52WPWAsnA/viewform';
+
+  Future<void> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url,
+          forceSafariVC: true,
+          forceWebView: false,
+          headers: <String, String>{'header key': 'header value'});
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   var random = Random();
 
   List _themes = [
@@ -454,17 +471,20 @@ class _SettingScreenState extends State<SettingScreen> {
                 },
               ),
               SettingsCard(
-                text: "Share",
+                text: "Report an Issue",
+                icon: Icon(Icons.arrow_forward_ios, color: Colors.black),
+                pressIcon: () {
+                  _launchInBrowser(_launchUrlIssue);
+                },
+              ),
+              SettingsCard(
+                text: "Feature requests",
                 icon: Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.black,
                 ),
                 pressIcon: () {
-                  Share.share(
-                      'Check out Impromptu Generator! \nA free app for all impromptu speakers to practice and get better! '
-                      'It can also help with speaking anxiety and much more! It is a must have so download with this link: '
-                      '\nhyperurl.co/impromptugenerator',
-                      subject: "Check out Impromptu Generator!");
+                  _launchInBrowser(_launchUrlFeature);
                 },
               ),
               SettingsCard(
