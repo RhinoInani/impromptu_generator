@@ -14,11 +14,8 @@ class More extends StatefulWidget {
 }
 
 class _MoreState extends State<More> {
-  String _launchUrlFeature =
-      'https://docs.google.com/forms/d/e/1FAIpQLSf5-olnauB46sExuj4lSoORSJXnLkYJ3tWyfdec-bltiiiNqA/viewform';
-
-  String _launchUrlIssue =
-      'https://docs.google.com/forms/d/e/1FAIpQLSeiwzKDD36LhICQE2BVaHEFSYoxfFGz5QYYc4lGq52WPWAsnA/viewform';
+  String _launchUrlAddTopics =
+      'https://docs.google.com/forms/d/e/1FAIpQLScnTxh5vWTy3iFnz4zOOLCpFGC7hNld0oiV8WmL6TRMJkWA5g/viewform?usp=sf_link';
 
   String _gitHub = "https://github.com/RhinoInani/impromptuGenerator";
 
@@ -90,6 +87,16 @@ class _MoreState extends State<More> {
                     'It can also help with speaking anxiety and much more! It is a must have so download with this link: '
                     '\nhyperurl.co/impromptugenerator',
                     subject: "Check out Impromptu Generator!");
+              },
+            ),
+            SettingsCard(
+              text: "Add To The Database",
+              icon: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.black,
+              ),
+              pressIcon: () {
+                _launchInBrowser(_launchUrlAddTopics);
               },
             ),
             SettingsCard(
