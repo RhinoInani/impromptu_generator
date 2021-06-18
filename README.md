@@ -5,6 +5,12 @@
 This application is meant for Impromptu Speakers to practice speaking in NSDA format. 
 This app runs a series of generators and timers to practice impromptu speaking.
 
+* 6/10/21 Version: 1.2.2 available in the App Store and Google Play Store: hyperurl.co/impromptugenerator
+  - *NEW* Feature: Quick actions! Navigate to any screen quickly and easily with quick actions.
+  - *NEW* Feature: add to the public database. Submit requests to add your topic lists to the public database.
+  - Minor changes to app size.
+  - Other minor bug fixes and enhancements.
+
 * 4/15/21: Version: 1.2.1 available in the App Store and Google Play Store: hyperurl.co/impromptugenerator
   - *NEW* gradient and text for all timers!
   - *NEW* accessibility support throughout the app!
