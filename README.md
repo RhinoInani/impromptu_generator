@@ -4,6 +4,9 @@
 
 This application is meant for Impromptu Speakers to practice speaking in NSDA format. 
 This app runs a series of generators and timers to practice impromptu speaking.
+With over 1500+ topics, many features such as Speech-to-Text, Custom Topic Generator, and much more it will guarantee a leg up on your Impromptu Speaking skills.
+
+!https://is5-ssl.mzstatic.com/image/thumb/Purple125/v4/a8/6f/1c/a86f1cb1-d445-5897-c20f-6d80425addcc/e96c7519-18bf-4a4b-a652-eb6ca9759aba_i7zVF59wEd.jpeg/1242x2688bb.png
 
 * 6/10/21 Version: 1.2.2 available in the App Store and Google Play Store: hyperurl.co/impromptugenerator
   - *NEW* Feature: Quick actions! Navigate to any screen quickly and easily with quick actions.
