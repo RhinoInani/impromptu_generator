@@ -9,7 +9,7 @@ With over 1500+ topics, many features such as Speech-to-Text, Custom Topic Gener
 Home Page![Home Page](https://user-images.githubusercontent.com/69125015/122690841-9b1a3e80-d1e0-11eb-9e85-f7a93c01cb2a.jpeg)
 Choose Topic![Choose Topic](https://user-images.githubusercontent.com/69125015/122690851-ae2d0e80-d1e0-11eb-8c21-779859a5fbae.jpeg)
 Settings![Settings](https://user-images.githubusercontent.com/69125015/122690856-b84f0d00-d1e0-11eb-9028-a606bed0705d.jpeg)
-[View more screenshots at]: hyperurl.co/impromptugenerator
+[View more screenshots at](hyperurl.co/impromptugenerator)
 
 * 6/10/21 Version: 1.2.2 available in the App Store and Google Play Store: hyperurl.co/impromptugenerator
   - *NEW* Feature: Quick actions! Navigate to any screen quickly and easily with quick actions.
