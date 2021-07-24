@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -124,19 +123,11 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AvatarGlow(
-        animate: _isListening,
-        glowColor: Colors.blue[500],
-        endRadius: 45,
-        duration: const Duration(milliseconds: 2000),
-        repeatPauseDuration: const Duration(milliseconds: 100),
-        repeat: true,
-        child: FloatingActionButton(
-          backgroundColor: Colors.blue[600],
-          onPressed: _listen,
-          child: Icon(
-              _isListening ? CupertinoIcons.mic_solid : CupertinoIcons.mic),
-        ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue[600],
+        onPressed: _listen,
+        child:
+            Icon(_isListening ? CupertinoIcons.mic_solid : CupertinoIcons.mic),
       ),
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {

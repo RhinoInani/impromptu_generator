@@ -122,6 +122,7 @@ class _MainScreenState extends State<MainScreen> {
                         topic3 = ConcreteTopics[
                             random.nextInt(ConcreteTopics.length)];
                       }
+                      timeRemaining = 0;
                       return ChooseTopic(
                         topic1: topic1,
                         topic2: topic2,
@@ -172,6 +173,7 @@ class _MainScreenState extends State<MainScreen> {
                       topic3 =
                           AbstractTopics[random.nextInt(AbstractTopics.length)];
                     }
+                    timeRemaining = 0;
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return ChooseTopic(
@@ -225,6 +227,7 @@ class _MainScreenState extends State<MainScreen> {
                     if (topic2 == topic3) {
                       topic3 = QuoteTopics[random.nextInt(QuoteTopics.length)];
                     }
+                    timeRemaining = 0;
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return ChooseTopic(

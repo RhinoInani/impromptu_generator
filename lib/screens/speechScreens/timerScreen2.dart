@@ -65,42 +65,39 @@ class _TimerScreen2State extends State<TimerScreen2> {
                       fontSize: MediaQuery.of(context).size.height * 0.03),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.012),
-                Hero(
-                  tag: 1,
-                  child: CircularCountDownTimer(
-                    controller: controller,
-                    duration: !customTime2 ? time2 * 60 : time2,
-                    width: MediaQuery.of(context).size.height * 0.5,
-                    height: MediaQuery.of(context).size.height * 0.35,
-                    ringColor: Colors.white,
-                    fillColor: Colors.blue,
-                    fillGradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.topRight,
-                        colors: [Colors.blue[900], Colors.cyan]),
-                    strokeWidth: 5.0,
-                    strokeCap: StrokeCap.round,
-                    textStyle: GoogleFonts.poppins(
-                      fontSize: MediaQuery.of(context).size.height * 0.06,
-                      color: Colors.black,
-                    ),
-                    isReverse: true,
-                    isReverseAnimation: true,
-                    onComplete: () async {
-                      Navigator.pop(context);
-                      setState(() {
-                        Wakelock.disable();
-                      });
-                      if (vibrate) {
-                        await Future.delayed(Duration(milliseconds: 500));
-                        HapticFeedback.vibrate();
-                        await Future.delayed(Duration(milliseconds: 500));
-                        HapticFeedback.vibrate();
-                        await Future.delayed(Duration(milliseconds: 500));
-                        HapticFeedback.vibrate();
-                      }
-                    },
+                CircularCountDownTimer(
+                  controller: controller,
+                  duration: !customTime2 ? time2 * 60 : time2,
+                  width: MediaQuery.of(context).size.height * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  ringColor: Colors.white,
+                  fillColor: Colors.blue,
+                  fillGradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.topRight,
+                      colors: [Colors.blue[900], Colors.cyan]),
+                  strokeWidth: 5.0,
+                  strokeCap: StrokeCap.round,
+                  textStyle: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.height * 0.06,
+                    color: Colors.black,
                   ),
+                  isReverse: true,
+                  isReverseAnimation: true,
+                  onComplete: () async {
+                    Navigator.pop(context);
+                    setState(() {
+                      Wakelock.disable();
+                    });
+                    if (vibrate) {
+                      await Future.delayed(Duration(milliseconds: 500));
+                      HapticFeedback.vibrate();
+                      await Future.delayed(Duration(milliseconds: 500));
+                      HapticFeedback.vibrate();
+                      await Future.delayed(Duration(milliseconds: 500));
+                      HapticFeedback.vibrate();
+                    }
+                  },
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
@@ -42,6 +43,26 @@ class _TimerScreen1State extends State<TimerScreen1> {
           iconTheme: IconThemeData(
             color: Colors.black,
           ),
+          actions: [
+            IconButton(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.05),
+              icon: Icon(
+                Platform.isIOS ? Icons.navigate_next : Icons.arrow_right_alt,
+                semanticLabel: "Next",
+                size: MediaQuery.of(context).size.height * 0.045,
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return MidScreen(
+                    randomTopic: widget.randomTopic,
+                    fontSize: widget.fontSize,
+                  );
+                }));
+              },
+            )
+          ],
           backgroundColor: Colors.cyan[50],
         ),
         backgroundColor: Colors.cyan[50],
@@ -76,46 +97,43 @@ class _TimerScreen1State extends State<TimerScreen1> {
                       fontSize: MediaQuery.of(context).size.height * 0.03),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.012),
-                Hero(
-                  tag: 1,
-                  child: CircularCountDownTimer(
-                    controller: controller,
-                    duration: !customTime1 ? time1 * 60 : time1,
-                    width: MediaQuery.of(context).size.height * 0.5,
-                    height: MediaQuery.of(context).size.height * 0.35,
-                    ringColor: Colors.white,
-                    fillGradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.topRight,
-                        colors: [Colors.blue[900], Colors.cyan]),
-                    fillColor: Colors.blue,
-                    initialDuration: 0,
-                    strokeWidth: 5.0,
-                    textStyle: GoogleFonts.poppins(
-                      fontSize: MediaQuery.of(context).size.height * 0.06,
-                      color: Colors.black,
-                    ),
-                    isReverse: true,
-                    isReverseAnimation: true,
-                    strokeCap: StrokeCap.round,
-                    onComplete: () async {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return MidScreen(
-                          randomTopic: widget.randomTopic,
-                          fontSize: widget.fontSize,
-                        );
-                      }));
-                      if (vibrate) {
-                        await Future.delayed(Duration(milliseconds: 500));
-                        HapticFeedback.vibrate();
-                        await Future.delayed(Duration(milliseconds: 500));
-                        HapticFeedback.vibrate();
-                        await Future.delayed(Duration(milliseconds: 500));
-                        HapticFeedback.vibrate();
-                      }
-                    },
+                CircularCountDownTimer(
+                  controller: controller,
+                  duration: !customTime1 ? time1 * 60 : time1,
+                  width: MediaQuery.of(context).size.height * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  ringColor: Colors.white,
+                  fillGradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.topRight,
+                      colors: [Colors.blue[900], Colors.cyan]),
+                  fillColor: Colors.blue,
+                  initialDuration: timeRemaining,
+                  strokeWidth: 5.0,
+                  textStyle: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.height * 0.06,
+                    color: Colors.black,
                   ),
+                  isReverse: true,
+                  isReverseAnimation: true,
+                  strokeCap: StrokeCap.round,
+                  onComplete: () async {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                      return MidScreen(
+                        randomTopic: widget.randomTopic,
+                        fontSize: widget.fontSize,
+                      );
+                    }));
+                    if (vibrate) {
+                      await Future.delayed(Duration(milliseconds: 500));
+                      HapticFeedback.vibrate();
+                      await Future.delayed(Duration(milliseconds: 500));
+                      HapticFeedback.vibrate();
+                      await Future.delayed(Duration(milliseconds: 500));
+                      HapticFeedback.vibrate();
+                    }
+                  },
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
@@ -144,6 +162,15 @@ class _TimerScreen1State extends State<TimerScreen1> {
                             controller.resume();
                           } else {
                             _isPause = true;
+                            String time = controller.getTime();
+                            int min = (int.parse(
+                                    time.substring(0, time.indexOf(':')))) *
+                                60;
+                            int sec = int.parse(
+                                time.substring(time.indexOf(":") + 1));
+                            timeRemaining =
+                                (!customTime1 ? time1 * 60 : time1) -
+                                    (min + sec);
                             controller.pause();
                           }
                         });

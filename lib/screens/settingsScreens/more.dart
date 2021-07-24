@@ -76,7 +76,7 @@ class _MoreState extends State<More> {
               thickness: 0.5,
             ),
             SettingsCard(
-              text: "Share",
+              text: "share",
               icon: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.black,
@@ -99,8 +99,18 @@ class _MoreState extends State<More> {
                 _launchInBrowser(_launchUrlAddTopics);
               },
             ),
+            // SettingsCard(
+            //   text: "Donate",
+            //   icon: Icon(
+            //     Icons.arrow_forward_ios,
+            //     color: Colors.black,
+            //   ),
+            //   pressIcon: () {
+            //     _launchInBrowser(_launchUrlAddTopics);
+            //   },
+            // ),
             SettingsCard(
-              text: "Github",
+              text: "github",
               icon: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.black,
@@ -110,7 +120,7 @@ class _MoreState extends State<More> {
               },
             ),
             SettingsCard(
-              text: "Instagram",
+              text: "instagram",
               icon: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.black,
@@ -120,7 +130,7 @@ class _MoreState extends State<More> {
               },
             ),
             SettingsCard(
-              text: "Contact Us",
+              text: "contact us",
               icon: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.black,
@@ -131,7 +141,7 @@ class _MoreState extends State<More> {
               },
             ),
             SettingsCard(
-              text: "Reset",
+              text: "reset",
               icon: Icon(
                 Icons.autorenew_outlined,
                 color: Colors.black,
@@ -191,7 +201,7 @@ class _MoreState extends State<More> {
               },
             ),
             SettingsCard(
-              text: "Application Info",
+              text: "application info",
               icon: Icon(
                 Icons.info_outline,
                 color: Colors.black,

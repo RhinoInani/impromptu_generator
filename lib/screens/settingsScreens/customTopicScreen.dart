@@ -304,7 +304,8 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
           backgroundColor: Colors.blue,
           onPressed: () async {
             if (customTopics.length < 3) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
                   duration: Duration(milliseconds: 1100),
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -318,8 +319,11 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                         ),
                       ),
                     ],
-                  )));
+                  ),
+                ),
+              );
             } else {
+              timeRemaining = 0;
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 var random = Random();
                 return ChooseTopic(

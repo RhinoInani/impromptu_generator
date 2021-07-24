@@ -52,36 +52,33 @@ class MidScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
             ),
-            Hero(
-              tag: 1,
-              child: CircularCountDownTimer(
-                duration: 10,
-                width: MediaQuery.of(context).size.height * 0.5,
-                height: MediaQuery.of(context).size.height * 0.35,
-                ringColor: Colors.white,
-                fillColor: Colors.blue,
-                fillGradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.topRight,
-                    colors: [Colors.blue[900], Colors.cyan]),
-                strokeWidth: 5.0,
-                strokeCap: StrokeCap.round,
-                textStyle: GoogleFonts.poppins(
-                  fontSize: MediaQuery.of(context).size.height * 0.06,
-                  color: Colors.black,
-                ),
-                isReverse: true,
-                isReverseAnimation: true,
-                onComplete: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return TimerScreen2(
-                      randomTopic: randomTopic,
-                      fontSize: fontSize,
-                    );
-                  }));
-                },
+            CircularCountDownTimer(
+              duration: 10,
+              width: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.35,
+              ringColor: Colors.white,
+              fillColor: Colors.blue,
+              fillGradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.topRight,
+                  colors: [Colors.blue[900], Colors.cyan]),
+              strokeWidth: 5.0,
+              strokeCap: StrokeCap.round,
+              textStyle: GoogleFonts.poppins(
+                fontSize: MediaQuery.of(context).size.height * 0.06,
+                color: Colors.black,
               ),
+              isReverse: true,
+              isReverseAnimation: true,
+              onComplete: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return TimerScreen2(
+                    randomTopic: randomTopic,
+                    fontSize: fontSize,
+                  );
+                }));
+              },
             ),
           ],
         ),

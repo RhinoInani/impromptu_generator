@@ -96,7 +96,7 @@ const List<String> AbstractTopics = [
   'Guilt',
   'Hatred',
   'Justice',
-  'Lonley',
+  'Lonely',
   'Prodigal',
   'Prosperity',
   'Self',
