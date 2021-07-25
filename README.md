@@ -6,10 +6,19 @@ This application is meant for Impromptu Speakers to practice speaking in NSDA fo
 This app runs a series of generators and timers to practice impromptu speaking.
 With over 1500+ topics, many features such as Speech-to-Text, Custom Topic Generator, and much more it will guarantee a leg up on your Impromptu Speaking skills.
 
+Now with over 1800+ users worldwide! Start using impromptu generator today!
+
 Home Page![Home Page](https://user-images.githubusercontent.com/69125015/122690841-9b1a3e80-d1e0-11eb-9e85-f7a93c01cb2a.jpeg)
 Choose Topic![Choose Topic](https://user-images.githubusercontent.com/69125015/122690851-ae2d0e80-d1e0-11eb-8c21-779859a5fbae.jpeg)
 Settings![Settings](https://user-images.githubusercontent.com/69125015/122690856-b84f0d00-d1e0-11eb-9028-a606bed0705d.jpeg)
 [View more screenshots here](hyperurl.co/impromptugenerator)
+
+
+* 7/24/21 Version 1.2.3 available in the App Store and Google Play Store: [hyperurl.co/impromptugenerator](hyperurl.co/impromptugenerator)
+  - *NEW* Feature: Skip prep time! If you are done preparing early, you can skip the remainder of your prep time and go straight to speaking.
+  - When changing topics during prep-time, the timer will no longer restart and continue to run while selecting a new topic.
+  - Other minor bug fixes and performance enhancements.
+  - Now using flutter null-saftey to ensure better performance, and even fewer crashes!
 
 * 6/10/21 Version: 1.2.2 available in the App Store and Google Play Store: [hyperurl.co/impromptugenerator](hyperurl.co/impromptugenerator)
   - *NEW* Feature: Quick actions! Navigate to any screen quickly and easily with quick actions.
@@ -28,4 +37,4 @@ Settings![Settings](https://user-images.githubusercontent.com/69125015/122690856
  
 * 3/5/21: Version: 1.2.0 available in the App Store and Google Play Store: [hyperurl.co/impromptugenerator](hyperurl.co/impromptugenerator)
 
-* For the saftey of our users, the build, iOS, and android files have not been added to the repository. For further questions feel free to reach out to rhino.inani@gmail.com.
+* **For the saftey of our users, the build, iOS, and android files have not been added to the repository. For further questions feel free to reach out to rhino.inani@gmail.com.**
