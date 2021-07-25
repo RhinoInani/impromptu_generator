@@ -13,17 +13,19 @@ import 'package:impromptu_generator2/screens/speechScreens/mid_screen.dart';
 import '../../userSettings.dart';
 
 class TimerScreen1 extends StatefulWidget {
-  final randomTopic;
-  final randomTopic2;
-  final randomTopic3;
+  final String randomTopic;
+  final String randomTopic2;
+  final String randomTopic3;
   final double fontSize;
+  final int maxLines;
 
   const TimerScreen1({
-    Key key,
-    this.randomTopic,
-    this.fontSize,
-    this.randomTopic2,
-    this.randomTopic3,
+    Key? key,
+    required this.randomTopic,
+    required this.fontSize,
+    required this.randomTopic2,
+    required this.randomTopic3,
+    required this.maxLines,
   }) : super(key: key);
 
   @override
@@ -48,7 +50,9 @@ class _TimerScreen1State extends State<TimerScreen1> {
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.05),
               icon: Icon(
-                Platform.isIOS ? Icons.navigate_next : Icons.arrow_right_alt,
+                Platform.isIOS
+                    ? Icons.navigate_next_sharp
+                    : Icons.arrow_right_alt,
                 semanticLabel: "Next",
                 size: MediaQuery.of(context).size.height * 0.045,
               ),
@@ -99,14 +103,14 @@ class _TimerScreen1State extends State<TimerScreen1> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.012),
                 CircularCountDownTimer(
                   controller: controller,
-                  duration: !customTime1 ? time1 * 60 : time1,
+                  duration: !customTime1! ? time1! * 60 : time1!,
                   width: MediaQuery.of(context).size.height * 0.5,
                   height: MediaQuery.of(context).size.height * 0.35,
                   ringColor: Colors.white,
                   fillGradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.topRight,
-                      colors: [Colors.blue[900], Colors.cyan]),
+                      colors: [Colors.blue[900]!, Colors.cyan]),
                   fillColor: Colors.blue,
                   initialDuration: timeRemaining,
                   strokeWidth: 5.0,
@@ -125,7 +129,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
                         fontSize: widget.fontSize,
                       );
                     }));
-                    if (vibrate) {
+                    if (vibrate!) {
                       await Future.delayed(Duration(milliseconds: 500));
                       HapticFeedback.vibrate();
                       await Future.delayed(Duration(milliseconds: 500));
@@ -152,7 +156,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
                               offset: Offset(0, 5),
                               spreadRadius: 5,
                               blurRadius: 20,
-                              color: Colors.grey[300]),
+                              color: Colors.grey[300]!),
                         ]),
                     child: GestureDetector(
                       onTap: () {
@@ -163,15 +167,24 @@ class _TimerScreen1State extends State<TimerScreen1> {
                           } else {
                             _isPause = true;
                             String time = controller.getTime();
-                            int min = (int.parse(
-                                    time.substring(0, time.indexOf(':')))) *
-                                60;
-                            int sec = int.parse(
-                                time.substring(time.indexOf(":") + 1));
-                            timeRemaining =
-                                (!customTime1 ? time1 * 60 : time1) -
-                                    (min + sec);
-                            controller.pause();
+                            if (time.length == 2 || time.length == 1) {
+                              int sec = int.parse(
+                                  time.substring(time.indexOf(":") + 1));
+                              timeRemaining =
+                                  (!customTime1! ? time1! * 60 : time1)! -
+                                      (sec);
+                              controller.pause();
+                            } else {
+                              int min = (int.parse(
+                                      time.substring(0, time.indexOf(':')))) *
+                                  60;
+                              int sec = int.parse(
+                                  time.substring(time.indexOf(":") + 1));
+                              timeRemaining =
+                                  (!customTime1! ? time1! * 60 : time1)! -
+                                      (min + sec);
+                              controller.pause();
+                            }
                           }
                         });
                         Navigator.pushReplacement(context,
@@ -181,6 +194,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
                             topic2: widget.randomTopic2,
                             topic3: widget.randomTopic3,
                             fontSize: widget.fontSize,
+                            maxLines: widget.maxLines,
                           );
                         }));
                       },
@@ -209,7 +223,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
             ),
           ),
         ),
-        floatingActionButton: playPause
+        floatingActionButton: playPause!
             ? FloatingActionButton.extended(
                 backgroundColor: Colors.blue[600],
                 elevation: 5,

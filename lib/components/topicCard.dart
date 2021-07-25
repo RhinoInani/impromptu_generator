@@ -7,14 +7,14 @@ import 'package:wakelock/wakelock.dart';
 
 class TopicCard extends StatefulWidget {
   const TopicCard({
-    Key key,
-    @required this.topic1,
-    @required this.topic2,
-    @required this.topic3,
-    @required this.fontSize,
-    @required this.topic,
-    @required this.maxLines,
-    @required this.timeRe,
+    Key? key,
+    required this.topic1,
+    required this.topic2,
+    required this.topic3,
+    required this.fontSize,
+    required this.topic,
+    required this.maxLines,
+    required this.timeRe,
   }) : super(key: key);
 
   final String topic;
@@ -47,7 +47,7 @@ class _TopicCardState extends State<TopicCard> {
                     offset: Offset(0, 5),
                     spreadRadius: 6,
                     blurRadius: 20,
-                    color: Colors.grey[400]),
+                    color: Colors.grey[400]!),
               ]),
           child: GestureDetector(
             onTap: () {
@@ -61,6 +61,7 @@ class _TopicCardState extends State<TopicCard> {
                       randomTopic2: widget.topic2,
                       randomTopic3: widget.topic3,
                       fontSize: widget.fontSize,
+                      maxLines: widget.maxLines,
                     );
                   },
                 ),
@@ -70,7 +71,7 @@ class _TopicCardState extends State<TopicCard> {
                 timeRemaining == 0
                     ? timeRemaining = 0
                     : timeRemaining =
-                        (!customTime1 ? time1 * 60 : time1) - widget.timeRe;
+                        (!customTime1! ? time1! * 60 : time1)! - widget.timeRe;
               });
             },
             child: Container(

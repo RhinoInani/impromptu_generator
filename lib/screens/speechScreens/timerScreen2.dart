@@ -12,7 +12,7 @@ class TimerScreen2 extends StatefulWidget {
   final fontSize;
 
   const TimerScreen2({
-    Key key,
+    Key? key,
     this.randomTopic,
     this.fontSize,
   }) : super(key: key);
@@ -67,7 +67,7 @@ class _TimerScreen2State extends State<TimerScreen2> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.012),
                 CircularCountDownTimer(
                   controller: controller,
-                  duration: !customTime2 ? time2 * 60 : time2,
+                  duration: !customTime2! ? time2! * 60 : time2!,
                   width: MediaQuery.of(context).size.height * 0.5,
                   height: MediaQuery.of(context).size.height * 0.35,
                   ringColor: Colors.white,
@@ -75,7 +75,7 @@ class _TimerScreen2State extends State<TimerScreen2> {
                   fillGradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.topRight,
-                      colors: [Colors.blue[900], Colors.cyan]),
+                      colors: [Colors.blue[900]!, Colors.cyan]),
                   strokeWidth: 5.0,
                   strokeCap: StrokeCap.round,
                   textStyle: GoogleFonts.poppins(
@@ -89,7 +89,7 @@ class _TimerScreen2State extends State<TimerScreen2> {
                     setState(() {
                       Wakelock.disable();
                     });
-                    if (vibrate) {
+                    if (vibrate!) {
                       await Future.delayed(Duration(milliseconds: 500));
                       HapticFeedback.vibrate();
                       await Future.delayed(Duration(milliseconds: 500));
@@ -103,7 +103,7 @@ class _TimerScreen2State extends State<TimerScreen2> {
             ),
           ),
         ),
-        floatingActionButton: playPause
+        floatingActionButton: playPause!
             ? FloatingActionButton.extended(
                 backgroundColor: Colors.blue[600],
                 onPressed: () {

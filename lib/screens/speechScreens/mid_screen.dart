@@ -8,7 +8,7 @@ class MidScreen extends StatelessWidget {
   final fontSize;
 
   const MidScreen({
-    Key key,
+    Key? key,
     this.randomTopic,
     this.fontSize,
   }) : super(key: key);
@@ -61,7 +61,7 @@ class MidScreen extends StatelessWidget {
               fillGradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.topRight,
-                  colors: [Colors.blue[900], Colors.cyan]),
+                  colors: [Colors.blue[900]!, Colors.cyan]),
               strokeWidth: 5.0,
               strokeCap: StrokeCap.round,
               textStyle: GoogleFonts.poppins(

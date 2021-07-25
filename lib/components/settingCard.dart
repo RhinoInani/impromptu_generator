@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SettingsCard extends StatelessWidget {
-  final String text;
-  final Icon icon;
-  final Function pressIcon;
-  const SettingsCard({Key key, this.text, this.icon, this.pressIcon}) : super(key: key);
+  final String? text;
+  final Icon? icon;
+  final Function? pressIcon;
+  const SettingsCard({Key? key, this.text, this.icon, this.pressIcon}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: pressIcon,
+      onTap: pressIcon as void Function()?,
       child: Column(
         children: [
           Container(
@@ -22,14 +22,14 @@ class SettingsCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      text,
+                      text!,
                       style: GoogleFonts.poppins(
                         fontSize: MediaQuery.of(context).size.width * 0.055,
                       ),
                     ),
                     IconButton(
-                      onPressed:pressIcon,
-                      icon: icon,
+                      onPressed:pressIcon as void Function()?,
+                      icon: icon!,
                       iconSize: MediaQuery.of(context).size.height * 0.03,
                       color: Colors.black,
                     ),

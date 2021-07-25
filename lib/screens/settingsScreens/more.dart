@@ -76,7 +76,7 @@ class _MoreState extends State<More> {
               thickness: 0.5,
             ),
             SettingsCard(
-              text: "share",
+              text: "Share",
               icon: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.black,
@@ -110,7 +110,7 @@ class _MoreState extends State<More> {
             //   },
             // ),
             SettingsCard(
-              text: "github",
+              text: "Github",
               icon: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.black,
@@ -120,7 +120,7 @@ class _MoreState extends State<More> {
               },
             ),
             SettingsCard(
-              text: "instagram",
+              text: "Instagram",
               icon: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.black,
@@ -130,7 +130,7 @@ class _MoreState extends State<More> {
               },
             ),
             SettingsCard(
-              text: "contact us",
+              text: "Contact us",
               icon: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.black,
@@ -141,7 +141,7 @@ class _MoreState extends State<More> {
               },
             ),
             SettingsCard(
-              text: "reset",
+              text: "Reset",
               icon: Icon(
                 Icons.autorenew_outlined,
                 color: Colors.black,
@@ -184,15 +184,15 @@ class _MoreState extends State<More> {
                                 vibrate = true;
                                 customTime1 = false;
                                 customTime2 = false;
-                                customTopics.clear();
-                                prefs.setBool('customTime1', customTime1);
-                                prefs.setBool('customTime2', customTime2);
-                                prefs.setInt('time1', time1);
-                                prefs.setInt('time2', time2);
-                                prefs.setBool('playPause', playPause);
-                                prefs.setBool('vibrate', vibrate);
+                                customTopics!.clear();
+                                prefs.setBool('customTime1', customTime1!);
+                                prefs.setBool('customTime2', customTime2!);
+                                prefs.setInt('time1', time1!);
+                                prefs.setInt('time2', time2!);
+                                prefs.setBool('playPause', playPause!);
+                                prefs.setBool('vibrate', vibrate!);
                                 prefs.setStringList(
-                                    'customTopics', customTopics);
+                                    'customTopics', customTopics!);
                                 HapticFeedback.selectionClick();
                               }),
                         ],
@@ -201,7 +201,7 @@ class _MoreState extends State<More> {
               },
             ),
             SettingsCard(
-              text: "application info",
+              text: "Application Info",
               icon: Icon(
                 Icons.info_outline,
                 color: Colors.black,
@@ -210,7 +210,7 @@ class _MoreState extends State<More> {
               pressIcon: () {
                 showAboutDialog(
                     context: context,
-                    applicationVersion: '1.2.2',
+                    applicationVersion: '1.2.3',
                     applicationName: 'Impromptu Generator',
                     applicationIcon: Image.asset(
                       'assets/logo_ios.png',

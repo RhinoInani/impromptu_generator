@@ -46,7 +46,7 @@ class _MainScreenState extends State<MainScreen> {
       DeviceOrientation.portraitUp,
     ]);
     Color textColor = Colors.black;
-    Color mainColor = Colors.cyan[50];
+    Color? mainColor = Colors.cyan[50];
     // final Brightness brightnessValue = MediaQuery.of(context).platformBrightness;
     // bool isDark = brightnessValue == Brightness.dark;
     // if(isDark){

@@ -14,12 +14,12 @@ class ChooseTopic extends StatefulWidget {
   final int maxLines;
 
   const ChooseTopic({
-    Key key,
-    this.topic1,
-    this.topic2,
-    this.topic3,
-    this.fontSize,
-    this.maxLines,
+    Key? key,
+    required this.topic1,
+    required this.topic2,
+    required this.topic3,
+    required this.fontSize,
+    required this.maxLines,
   }) : super(key: key);
 
   @override
@@ -27,8 +27,8 @@ class ChooseTopic extends StatefulWidget {
 }
 
 class _ChooseTopicState extends State<ChooseTopic> {
-  Timer _timer;
-  int time = (!customTime1 ? time1 * 60 : time1) - timeRemaining;
+  late Timer _timer;
+  int time = (!customTime1! ? time1! * 60 : time1)! - timeRemaining;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);

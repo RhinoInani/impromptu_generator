@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:highlight_text/highlight_text.dart';
 import 'package:share/share.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -13,17 +12,17 @@ import '../../userSettings.dart';
 
 class SpeechToTextScreen extends StatefulWidget {
   @required
-  final String randomTopic;
+  final String? randomTopic;
 
-  const SpeechToTextScreen({Key key, this.randomTopic}) : super(key: key);
+  const SpeechToTextScreen({Key? key, this.randomTopic}) : super(key: key);
   @override
   _SpeechToTextScreenState createState() => _SpeechToTextScreenState();
 }
 
 class _SpeechToTextScreenState extends State<SpeechToTextScreen>
     with SingleTickerProviderStateMixin {
-  Timer timer;
-  AnimationController _animationController;
+  Timer? timer;
+  late AnimationController _animationController;
 
   // TimerController _timerController;
   // TimerStyle _timerStyle = TimerStyle.ring;
@@ -35,38 +34,8 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
   //   _animationController.forward();
   //   super.initState();
   // }
-  final Map<String, HighlightedWord> _highlights = {
-    'voice': HighlightedWord(
-      onTap: () => print('voice'),
-      textStyle: const TextStyle(
-        color: Colors.green,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    'like': HighlightedWord(
-      onTap: () => print('like'),
-      textStyle: const TextStyle(
-        color: Colors.blueAccent,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    'uh': HighlightedWord(
-      onTap: () => print('uh'),
-      textStyle: const TextStyle(
-        color: Colors.blueAccent,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    'and': HighlightedWord(
-      onTap: () => print('and'),
-      textStyle: const TextStyle(
-        color: Colors.blueAccent,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  };
 
-  stt.SpeechToText _speech;
+  late stt.SpeechToText _speech;
   bool _isListening = false;
   String _text = 'Press the button and start speaking';
   double _confidence = 1.0;
@@ -141,7 +110,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
               child: Column(
                 children: [
                   Text(
-                    widget.randomTopic,
+                    widget.randomTopic!,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       fontSize: MediaQuery.of(context).size.height * 0.05,
@@ -151,7 +120,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: CircularCountDownTimer(
                       controller: controller,
-                      duration: !customTime2 ? time2 * 60 : time2,
+                      duration: !customTime2! ? time2! * 60 : time2!,
                       width: MediaQuery.of(context).size.height * 0.5,
                       height: MediaQuery.of(context).size.height * 0.25,
                       ringColor: Colors.white,
@@ -160,7 +129,7 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
                       fillGradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.topRight,
-                          colors: [Colors.blue[900], Colors.cyan]),
+                          colors: [Colors.blue[900]!, Colors.cyan]),
                       isReverseAnimation: true,
                       strokeWidth: 5.0,
                       textStyle: GoogleFonts.poppins(
@@ -178,10 +147,9 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen>
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 130.0),
-                      child: TextHighlight(
-                        text: _text,
-                        words: _highlights,
-                        textStyle: GoogleFonts.poppins(
+                      child: Text(
+                        _text,
+                        style: GoogleFonts.poppins(
                           fontSize: MediaQuery.of(context).size.height * 0.04,
                           color: Colors.black,
                           fontWeight: FontWeight.w400,

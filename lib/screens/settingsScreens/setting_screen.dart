@@ -49,9 +49,9 @@ class _SettingScreenState extends State<SettingScreen> {
     'C',
   ];
 
-  String _themesValue = '${customTime1 == true ? 'C' : time1 ??= 2}';
+  String? _themesValue = '${customTime1 == true ? 'C' : time1 ??= 2}';
 
-  String _themesValue2 = '${customTime2 == true ? 'C' : time2 ??= 5}';
+  String? _themesValue2 = '${customTime2 == true ? 'C' : time2 ??= 5}';
 
   void modalPopUpCustomTime(context, int defaultTime) {
     showModalBottomSheet(
@@ -241,7 +241,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 value: _themesValue,
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 17.0),
-                                onChanged: (value) {
+                                onChanged: (dynamic value) {
                                   setState(() {
                                     if (value == 'C') {
                                       _themesValue = value;
@@ -250,7 +250,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     } else {
                                       customTime1 = false;
                                       _themesValue = value;
-                                      time1 = int.parse(_themesValue);
+                                      time1 = int.parse(_themesValue!);
                                     }
                                   });
                                   HapticFeedback.lightImpact();
@@ -319,7 +319,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               value: _themesValue2,
                               style: TextStyle(
                                   color: Colors.black, fontSize: 17.0),
-                              onChanged: (value3) {
+                              onChanged: (dynamic value3) {
                                 setState(() {
                                   if (value3 == 'C') {
                                     _themesValue2 = value3;
@@ -328,7 +328,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   } else {
                                     customTime2 = false;
                                     _themesValue2 = value3;
-                                    time2 = int.parse(_themesValue2);
+                                    time2 = int.parse(_themesValue2!);
                                   }
                                 });
                                 HapticFeedback.lightImpact();
@@ -378,7 +378,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           ),
                           Spacer(),
                           Switch.adaptive(
-                            value: playPause,
+                            value: playPause!,
                             onChanged: (value) {
                               setState(() {
                                 playPause = value;
@@ -422,7 +422,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           ),
                           Spacer(),
                           Switch.adaptive(
-                            value: vibrate,
+                            value: vibrate!,
                             onChanged: (value) {
                               setState(() {
                                 vibrate = value;
@@ -515,13 +515,13 @@ class _SettingScreenState extends State<SettingScreen> {
             onPressed: () async {
               Navigator.pop(context);
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.setBool('customTime1', customTime1);
-              prefs.setBool('customTime2', customTime2);
-              prefs.setInt('time1', time1);
-              prefs.setInt('time2', time2);
-              prefs.setBool('playPause', playPause);
-              prefs.setBool('vibrate', vibrate);
-              prefs.setStringList('customTopics', customTopics);
+              prefs.setBool('customTime1', customTime1!);
+              prefs.setBool('customTime2', customTime2!);
+              prefs.setInt('time1', time1!);
+              prefs.setInt('time2', time2!);
+              prefs.setBool('playPause', playPause!);
+              prefs.setBool('vibrate', vibrate!);
+              prefs.setStringList('customTopics', customTopics!);
               HapticFeedback.selectionClick();
             },
           ),

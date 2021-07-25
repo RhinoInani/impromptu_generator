@@ -91,7 +91,7 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                   height: size.height * 0.05,
                 ),
                 GestureDetector(
-                  onTap: press,
+                  onTap: press as void Function()?,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.blue[100],
@@ -164,12 +164,12 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                 if (textController.text.isEmpty) {
                 } else {
                   setState(() {
-                    customTopics.add(textController.text);
+                    customTopics!.add(textController.text);
                     textController.clear();
                   });
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
-                  prefs.setStringList('customTopics', customTopics);
+                  prefs.setStringList('customTopics', customTopics!);
                   Navigator.of(context).pop();
                   textController.clear();
                 }
@@ -198,10 +198,10 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: customTopics.length,
+              itemCount: customTopics!.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                final topic = customTopics[index];
+                final topic = customTopics![index];
                 return Dismissible(
                   key: UniqueKey(),
                   child: GestureDetector(
@@ -212,12 +212,12 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                             textController.text == null) {
                         } else {
                           setState(() {
-                            customTopics.remove(customTopics[index]);
-                            customTopics.insert(index, textController.text);
+                            customTopics!.remove(customTopics![index]);
+                            customTopics!.insert(index, textController.text);
                           });
                           SharedPreferences prefs =
                               await SharedPreferences.getInstance();
-                          prefs.setStringList('customTopics', customTopics);
+                          prefs.setStringList('customTopics', customTopics!);
                           Navigator.of(context).pop();
                           textController.clear();
                         }
@@ -252,7 +252,7 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                   ),
                   onDismissed: (direction) async {
                     setState(() {
-                      customTopics.removeAt(index);
+                      customTopics!.removeAt(index);
                     });
                     HapticFeedback.mediumImpact();
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -269,7 +269,7 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                               ),
                               onTap: () {
                                 setState(() {
-                                  customTopics.insert(index, "$topic");
+                                  customTopics!.insert(index, "$topic");
                                 });
                               },
                             )
@@ -277,7 +277,7 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                         )));
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setStringList('customTopics', customTopics);
+                    prefs.setStringList('customTopics', customTopics!);
                   },
                   background: Container(
                       color: Colors.red[300],
@@ -303,7 +303,7 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
           highlightElevation: 7,
           backgroundColor: Colors.blue,
           onPressed: () async {
-            if (customTopics.length < 3) {
+            if (customTopics!.length < 3) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   duration: Duration(milliseconds: 1100),
@@ -327,9 +327,9 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 var random = Random();
                 return ChooseTopic(
-                  topic1: customTopics[random.nextInt(customTopics.length)],
-                  topic2: customTopics[random.nextInt(customTopics.length)],
-                  topic3: customTopics[random.nextInt(customTopics.length)],
+                  topic1: customTopics![random.nextInt(customTopics!.length)],
+                  topic2: customTopics![random.nextInt(customTopics!.length)],
+                  topic3: customTopics![random.nextInt(customTopics!.length)],
                   fontSize: 0.06,
                   maxLines: 10,
                 );
