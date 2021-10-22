@@ -259,35 +259,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-// class News {
-//   List<ArticleModel> news = [];
-//
-//   Future<void> getNews() async {
-//     String url =
-//         "https://newsapi.org/v2/top-headlines?country=us&apiKey=ca1bdfa3a57f4e3fb377c79ce6d05a81";
-//     var response = await http.get(url);
-//
-//     var jsonData = jsonDecode(response.body);
-//
-//     if (jsonData['status'] == "ok") {
-//       jsonData['articles'].forEach((element) {
-//         if (element['description'] == null) {
-//           ArticleModel articleModel = ArticleModel(
-//               title: element['title'],
-//               url: element['url'],
-//               description: element['description']);
-//           news.add(ArticleModel());
-//         }
-//       });
-//     }
-//   }
-// }
-//
-// class ArticleModel {
-//   String title;
-//   String url;
-//   String description;
-//
-//   ArticleModel({this.title, this.url, this.description});
-// }

@@ -208,8 +208,7 @@ class _CustomTopicsScreenState extends State<CustomTopicsScreen> {
                     onTap: () {
                       modalPopUpTopic(context, "Edit Topic", "Save changes",
                           () async {
-                        if (textController.text.isEmpty ||
-                            textController.text == null) {
+                        if (textController.text.isEmpty) {
                         } else {
                           setState(() {
                             customTopics!.remove(customTopics![index]);

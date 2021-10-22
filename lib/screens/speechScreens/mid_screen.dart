@@ -1,16 +1,19 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:impromptu_generator2/screens/settingsScreens/lightningRounds.dart';
 import 'package:impromptu_generator2/screens/speechScreens/timerScreen2.dart';
 
 class MidScreen extends StatelessWidget {
   final randomTopic;
   final fontSize;
+  final bool lightning;
 
   const MidScreen({
     Key? key,
-    this.randomTopic,
-    this.fontSize,
+    required this.randomTopic,
+    required this.fontSize,
+    required this.lightning,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -37,12 +40,12 @@ class MidScreen extends StatelessWidget {
                   style: GoogleFonts.poppins(color: Colors.black),
                   children: [
                     TextSpan(
-                        text: "get ready to\n",
+                        text: lightning ? "take a \n" : "get ready to\n",
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.height * 0.06,
                         )),
                     TextSpan(
-                        text: "speak",
+                        text: lightning ? "break" : "speak",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: MediaQuery.of(context).size.height * 0.08,
@@ -71,13 +74,18 @@ class MidScreen extends StatelessWidget {
               isReverse: true,
               isReverseAnimation: true,
               onComplete: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) {
-                  return TimerScreen2(
-                    randomTopic: randomTopic,
-                    fontSize: fontSize,
-                  );
-                }));
+                lightning
+                    ? Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                        return LightningRounds();
+                      }))
+                    : Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                        return TimerScreen2(
+                          randomTopic: randomTopic,
+                          fontSize: fontSize,
+                        );
+                      }));
               },
             ),
           ],

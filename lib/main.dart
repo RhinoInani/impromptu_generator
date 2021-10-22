@@ -142,12 +142,12 @@ class _MainScreenState extends State<MainScreen> {
                   child: Text(
                     "concrete",
                     style: GoogleFonts.poppins(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      fontSize: MediaQuery.of(context).size.shortestSide * 0.06,
                       color: textColor,
                     ),
                   ),
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.11),
+                  padding: EdgeInsets.all(
+                      MediaQuery.of(context).size.shortestSide * 0.11),
                   shape: CircleBorder(),
                 ),
                 RawMaterialButton(
@@ -194,9 +194,10 @@ class _MainScreenState extends State<MainScreen> {
                   splashColor: Colors.transparent,
                   child: Text("abstract",
                       style: GoogleFonts.poppins(
-                          fontSize: MediaQuery.of(context).size.width * 0.06)),
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.11),
+                          fontSize:
+                              MediaQuery.of(context).size.shortestSide * 0.06)),
+                  padding: EdgeInsets.all(
+                      MediaQuery.of(context).size.shortestSide * 0.11),
                   shape: CircleBorder(),
                 ),
               ],
@@ -248,9 +249,10 @@ class _MainScreenState extends State<MainScreen> {
                   elevation: 7.0,
                   child: Text("quotes",
                       style: GoogleFonts.poppins(
-                          fontSize: MediaQuery.of(context).size.width * 0.06)),
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.11),
+                          fontSize:
+                              MediaQuery.of(context).size.shortestSide * 0.06)),
+                  padding: EdgeInsets.all(
+                      MediaQuery.of(context).size.shortestSide * 0.11),
                   shape: CircleBorder(),
                 ),
               ],

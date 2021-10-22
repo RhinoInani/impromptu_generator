@@ -62,6 +62,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
                   return MidScreen(
                     randomTopic: widget.randomTopic,
                     fontSize: widget.fontSize,
+                    lightning: false,
                   );
                 }));
               },
@@ -127,6 +128,7 @@ class _TimerScreen1State extends State<TimerScreen1> {
                       return MidScreen(
                         randomTopic: widget.randomTopic,
                         fontSize: widget.fontSize,
+                        lightning: false,
                       );
                     }));
                     if (vibrate!) {

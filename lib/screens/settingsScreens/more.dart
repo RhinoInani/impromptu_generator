@@ -210,7 +210,7 @@ class _MoreState extends State<More> {
               pressIcon: () {
                 showAboutDialog(
                     context: context,
-                    applicationVersion: '1.2.3',
+                    applicationVersion: '1.2.4',
                     applicationName: 'Impromptu Generator',
                     applicationIcon: Image.asset(
                       'assets/logo_ios.png',

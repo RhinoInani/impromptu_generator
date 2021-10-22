@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:impromptu_generator2/components//settingCard.dart';
+import 'package:impromptu_generator2/screens/settingsScreens/chooseTopicGroup.dart';
 import 'package:impromptu_generator2/screens/settingsScreens/customTopicScreen.dart';
 import 'package:impromptu_generator2/screens/settingsScreens/more.dart';
 import 'package:impromptu_generator2/screens/settingsScreens/speechToTextScreen.dart';
@@ -443,6 +444,20 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                 ],
               ),
+              // SettingsCard(
+              //   text: "Record Speech",
+              //   icon: Icon(
+              //     Icons.arrow_forward_ios,
+              //     color: Colors.black,
+              //   ),
+              //   pressIcon: () {
+              //     Navigator.push(context, MaterialPageRoute(builder: (context) {
+              //       return SpeechRecorder(
+              //         randomTopic: 'Test',
+              //       );
+              //     }));
+              //   },
+              // ),
               SettingsCard(
                 text: "Custom Topics",
                 icon: Icon(
@@ -467,6 +482,18 @@ class _SettingScreenState extends State<SettingScreen> {
                       randomTopic:
                           AbstractTopics[random.nextInt(AbstractTopics.length)],
                     );
+                  }));
+                },
+              ),
+              SettingsCard(
+                text: "Lightning Rounds",
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.black,
+                ),
+                pressIcon: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return ChooseTopicGroup();
                   }));
                 },
               ),
