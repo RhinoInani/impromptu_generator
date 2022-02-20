@@ -4,17 +4,67 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:impromptu_generator2/screens/settingsScreens/lightningRounds.dart';
 import 'package:impromptu_generator2/screens/speechScreens/timerScreen2.dart';
 
-class MidScreen extends StatelessWidget {
+import '../../userSettings.dart';
+
+class MidScreen extends StatefulWidget {
   final randomTopic;
-  final fontSize;
-  final bool lightning;
 
   const MidScreen({
     Key? key,
     required this.randomTopic,
-    required this.fontSize,
-    required this.lightning,
   }) : super(key: key);
+
+  @override
+  State<MidScreen> createState() => _MidScreenState();
+}
+
+class _MidScreenState extends State<MidScreen> {
+  late String header1;
+  late String header2;
+  late Function function;
+
+  @override
+  void initState() {
+    if (afterEffect == "normal") {
+      header1 = "get ready to\n";
+      header2 = "speak";
+      function = () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return TimerScreen2(
+            randomTopic: widget.randomTopic,
+          );
+        }));
+      };
+    }
+    if (afterEffect == "lightning") {
+      header1 = "take a \n";
+      header2 = "break";
+      function = () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return LightningRounds();
+        }));
+      };
+    }
+    if (afterEffect == "recording" || recording!) {
+      header1 = "get ready to\n";
+      header2 = "speak";
+      function = () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return TimerScreen2(
+            randomTopic: widget.randomTopic,
+          );
+          // return SpeechRecorder(
+          //   randomTopic: widget.randomTopic,
+          // );
+        }));
+      };
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,12 +90,12 @@ class MidScreen extends StatelessWidget {
                   style: GoogleFonts.poppins(color: Colors.black),
                   children: [
                     TextSpan(
-                        text: lightning ? "take a \n" : "get ready to\n",
+                        text: header1,
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.height * 0.06,
                         )),
                     TextSpan(
-                        text: lightning ? "break" : "speak",
+                        text: header2,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: MediaQuery.of(context).size.height * 0.08,
@@ -74,18 +124,7 @@ class MidScreen extends StatelessWidget {
               isReverse: true,
               isReverseAnimation: true,
               onComplete: () {
-                lightning
-                    ? Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                        return LightningRounds();
-                      }))
-                    : Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                        return TimerScreen2(
-                          randomTopic: randomTopic,
-                          fontSize: fontSize,
-                        );
-                      }));
+                function.call();
               },
             ),
           ],

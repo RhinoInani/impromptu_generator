@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:impromptu_generator2/components/settingCard.dart';
 import 'package:impromptu_generator2/screens/splashScreen.dart';
 import 'package:impromptu_generator2/userSettings.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -210,7 +210,7 @@ class _MoreState extends State<More> {
               pressIcon: () {
                 showAboutDialog(
                     context: context,
-                    applicationVersion: '1.2.4',
+                    applicationVersion: '1.2.5',
                     applicationName: 'Impromptu Generator',
                     applicationIcon: Image.asset(
                       'assets/logo_ios.png',

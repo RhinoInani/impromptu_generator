@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:impromptu_generator2/components//settingCard.dart';
-import 'package:impromptu_generator2/screens/settingsScreens/chooseTopicGroup.dart';
-import 'package:impromptu_generator2/screens/settingsScreens/customTopicScreen.dart';
-import 'package:impromptu_generator2/screens/settingsScreens/more.dart';
-import 'package:impromptu_generator2/screens/settingsScreens/speechToTextScreen.dart';
+import 'package:impromptu_generator2/screens/settingsScreens/speechToText.dart';
+import 'package:impromptu_generator2/screens/settingsScreens/topicGroup.dart';
 import 'package:impromptu_generator2/topics/abstract_topics.dart';
 import 'package:impromptu_generator2/userSettings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'customTopics.dart';
+import 'more.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
@@ -53,6 +54,8 @@ class _SettingScreenState extends State<SettingScreen> {
   String? _themesValue = '${customTime1 == true ? 'C' : time1 ??= 2}';
 
   String? _themesValue2 = '${customTime2 == true ? 'C' : time2 ??= 5}';
+
+  bool _customTileExpanded = false;
 
   void modalPopUpCustomTime(context, int defaultTime) {
     showModalBottomSheet(
@@ -212,7 +215,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           Text(
-                            "Prep Time  (Mins)",
+                            "Prep Time",
                             style: GoogleFonts.poppins(
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.055,
@@ -291,7 +294,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Text(
-                          "Speech Time  (Mins)",
+                          "Speech Time",
                           style: GoogleFonts.poppins(
                             fontSize: MediaQuery.of(context).size.width * 0.055,
                           ),
@@ -444,19 +447,107 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                 ],
               ),
-              // SettingsCard(
-              //   text: "Record Speech",
-              //   icon: Icon(
-              //     Icons.arrow_forward_ios,
-              //     color: Colors.black,
-              //   ),
-              //   pressIcon: () {
-              //     Navigator.push(context, MaterialPageRoute(builder: (context) {
-              //       return SpeechRecorder(
-              //         randomTopic: 'Test',
-              //       );
-              //     }));
-              //   },
+              Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.035,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.width * 0.035),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Continuous",
+                                style: GoogleFonts.poppins(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.055,
+                                ),
+                              ),
+                              Text(
+                                "Only Uses Speech Time",
+                                style: GoogleFonts.poppins(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.04,
+                                  color: Colors.blueGrey[300],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Spacer(),
+                          Switch.adaptive(
+                            value: continuous!,
+                            onChanged: (value) {
+                              setState(() {
+                                continuous = value;
+                              });
+                            },
+                            inactiveTrackColor: Colors.blueGrey[500],
+                            activeTrackColor: Colors.cyan[100],
+                            activeColor: Colors.cyan[500],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    height: 5,
+                    color: Colors.black87,
+                    thickness: 0.5,
+                  ),
+                ],
+              ),
+              // Column(
+              //   children: [
+              //     Container(
+              //       width: MediaQuery.of(context).size.width,
+              //       padding: EdgeInsets.symmetric(
+              //         vertical: MediaQuery.of(context).size.height * 0.035,
+              //       ),
+              //       child: Padding(
+              //         padding: EdgeInsets.symmetric(
+              //             horizontal:
+              //                 MediaQuery.of(context).size.width * 0.035),
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //           children: <Widget>[
+              //             Text(
+              //               "Record Speech (beta)",
+              //               style: GoogleFonts.poppins(
+              //                 fontSize:
+              //                     MediaQuery.of(context).size.width * 0.055,
+              //               ),
+              //             ),
+              //             Spacer(),
+              //             Switch.adaptive(
+              //               value: recording!,
+              //               onChanged: (value) {
+              //                 setState(() {
+              //                   recording = value;
+              //                   afterEffect = "recording";
+              //                 });
+              //               },
+              //               inactiveTrackColor: Colors.blueGrey[500],
+              //               activeTrackColor: Colors.cyan[100],
+              //               activeColor: Colors.cyan[500],
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     Divider(
+              //       height: 5,
+              //       color: Colors.black87,
+              //       thickness: 0.5,
+              //     ),
+              //   ],
               // ),
               SettingsCard(
                 text: "Custom Topics",
@@ -497,23 +588,65 @@ class _SettingScreenState extends State<SettingScreen> {
                   }));
                 },
               ),
-              SettingsCard(
-                text: "Report an Issue",
-                icon: Icon(Icons.arrow_forward_ios, color: Colors.black),
-                pressIcon: () {
-                  _launchInBrowser(_launchUrlIssue);
-                },
-              ),
-              SettingsCard(
-                text: "Feature requests",
-                icon: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
+              ExpansionTile(
+                tilePadding: EdgeInsets.fromLTRB(
+                  MediaQuery.of(context).size.width * 0.035,
+                  MediaQuery.of(context).size.width * 0.07,
+                  MediaQuery.of(context).size.width * 0.07,
+                  MediaQuery.of(context).size.width * 0.07,
                 ),
-                pressIcon: () {
-                  _launchInBrowser(_launchUrlFeature);
+                //vertical: MediaQuery.of(context).size.width * 0.07,
+                title: Text(
+                  "Help Services",
+                  style: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.width * 0.055,
+                  ),
+                ),
+                textColor: Colors.black,
+                collapsedTextColor: Colors.black,
+                collapsedIconColor: Colors.black,
+                trailing: Icon(
+                  _customTileExpanded
+                      ? CupertinoIcons.chevron_up
+                      : CupertinoIcons.chevron_down,
+                  color: Colors.black,
+                  size: MediaQuery.of(context).size.height * 0.03,
+                ),
+                onExpansionChanged: (bool expanded) {
+                  setState(() => _customTileExpanded = expanded);
                 },
+                children: [
+                  Divider(
+                    height: 5,
+                    color: Colors.black87,
+                    thickness: 0.5,
+                  ),
+                  SettingsCard(
+                    text: "Report an Issue",
+                    icon: Icon(Icons.arrow_forward_ios, color: Colors.black),
+                    pressIcon: () {
+                      _launchInBrowser(_launchUrlIssue);
+                    },
+                  ),
+                  SettingsCard(
+                    text: "Feature requests",
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black,
+                    ),
+                    pressIcon: () {
+                      _launchInBrowser(_launchUrlFeature);
+                    },
+                  ),
+                ],
               ),
+              _customTileExpanded
+                  ? Container()
+                  : Divider(
+                      height: 5,
+                      color: Colors.black87,
+                      thickness: 0.5,
+                    ),
               SettingsCard(
                 text: "More",
                 icon: Icon(
@@ -549,6 +682,8 @@ class _SettingScreenState extends State<SettingScreen> {
               prefs.setBool('playPause', playPause!);
               prefs.setBool('vibrate', vibrate!);
               prefs.setStringList('customTopics', customTopics!);
+              prefs.setBool('recording', recording!);
+              prefs.setBool('continuous', continuous!);
               HapticFeedback.selectionClick();
             },
           ),

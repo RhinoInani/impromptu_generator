@@ -10,7 +10,6 @@ import 'package:impromptu_generator2/screens/speechScreens/mid_screen.dart';
 import 'package:impromptu_generator2/topics/abstract_topics.dart';
 import 'package:impromptu_generator2/topics/concrete_topics.dart';
 import 'package:impromptu_generator2/topics/quote_topics.dart';
-import 'package:wakelock/wakelock.dart';
 
 import '../../userSettings.dart';
 
@@ -127,7 +126,7 @@ class _LightningRoundsState extends State<LightningRounds> {
                 isReverseAnimation: true,
                 onComplete: () async {
                   setState(() {
-                    Wakelock.disable();
+                    afterEffect = "lightning";
                   });
                   if (vibrate!) {
                     await Future.delayed(Duration(milliseconds: 500));
@@ -140,8 +139,6 @@ class _LightningRoundsState extends State<LightningRounds> {
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (BuildContext context) {
                     return MidScreen(
-                      fontSize: 10,
-                      lightning: true,
                       randomTopic: "",
                     );
                   }));
@@ -152,11 +149,12 @@ class _LightningRoundsState extends State<LightningRounds> {
               ),
               OutlinedButton(
                 onPressed: () {
+                  setState(() {
+                    afterEffect = "lightning";
+                  });
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (BuildContext context) {
                     return MidScreen(
-                      fontSize: 10,
-                      lightning: true,
                       randomTopic: "",
                     );
                   }));

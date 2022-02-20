@@ -10,16 +10,12 @@ class ChooseTopic extends StatefulWidget {
   final String topic1;
   final String topic2;
   final String topic3;
-  final double fontSize;
-  final int maxLines;
 
   const ChooseTopic({
     Key? key,
     required this.topic1,
     required this.topic2,
     required this.topic3,
-    required this.fontSize,
-    required this.maxLines,
   }) : super(key: key);
 
   @override
@@ -137,27 +133,21 @@ class _ChooseTopicState extends State<ChooseTopic> {
                   topic1: widget.topic1,
                   topic2: widget.topic2,
                   topic3: widget.topic3,
-                  fontSize: widget.fontSize,
-                  maxLines: widget.maxLines,
-                  timeRe: time,
+                  timeRemaining: time,
                 ),
                 TopicCard(
                   topic: widget.topic2,
                   topic1: widget.topic2,
                   topic2: widget.topic1,
                   topic3: widget.topic3,
-                  fontSize: widget.fontSize,
-                  maxLines: widget.maxLines,
-                  timeRe: time,
+                  timeRemaining: time,
                 ),
                 TopicCard(
                   topic: widget.topic3,
                   topic1: widget.topic3,
                   topic2: widget.topic1,
                   topic3: widget.topic2,
-                  fontSize: widget.fontSize,
-                  maxLines: widget.maxLines,
-                  timeRe: time,
+                  timeRemaining: time,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
               ],

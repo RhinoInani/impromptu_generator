@@ -101,6 +101,9 @@ class _MainScreenState extends State<MainScreen> {
               children: <Widget>[
                 RawMaterialButton(
                   onPressed: () {
+                    setState(() {
+                      afterEffect = "normal";
+                    });
                     var random = Random();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
@@ -127,8 +130,6 @@ class _MainScreenState extends State<MainScreen> {
                         topic1: topic1,
                         topic2: topic2,
                         topic3: topic3,
-                        fontSize: 0.06,
-                        maxLines: 1,
                       );
                     }));
                   },
@@ -152,8 +153,9 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 RawMaterialButton(
                   onPressed: () {
-                    time1 ??= 2;
-                    time2 ??= 5;
+                    setState(() {
+                      afterEffect = "normal";
+                    });
                     var random = Random();
                     String topic1 =
                         AbstractTopics[random.nextInt(AbstractTopics.length)];
@@ -180,8 +182,6 @@ class _MainScreenState extends State<MainScreen> {
                         topic1: topic1,
                         topic2: topic2,
                         topic3: topic3,
-                        fontSize: 0.06,
-                        maxLines: 1,
                       );
                     }));
                   },
@@ -210,8 +210,9 @@ class _MainScreenState extends State<MainScreen> {
               children: <Widget>[
                 RawMaterialButton(
                   onPressed: () {
-                    time1 ??= 2;
-                    time2 ??= 5;
+                    setState(() {
+                      afterEffect = "normal";
+                    });
                     var random = Random();
                     String topic1 =
                         QuoteTopics[random.nextInt(QuoteTopics.length)];
@@ -235,8 +236,6 @@ class _MainScreenState extends State<MainScreen> {
                         topic1: topic1,
                         topic2: topic2,
                         topic3: topic3,
-                        fontSize: 0.025,
-                        maxLines: 7,
                       );
                     }));
                   },

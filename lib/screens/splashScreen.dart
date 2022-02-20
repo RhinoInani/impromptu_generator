@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:impromptu_generator2/components/shortcuts.dart';
@@ -20,15 +19,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // News news = News();
-  // List<ArticleModel> articles = List<ArticleModel>();
-  //
-  // getNews() async {
-  //   News newsClass = News();
-  //   await newsClass.getNews();
-  //   articles = newsClass.news;
-  // }
-
   void _getDataFromSharedPrefs() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getInt('time1') == null) {
@@ -52,6 +42,13 @@ class _SplashScreenState extends State<SplashScreen> {
     if (prefs.getBool('customTime2') == null) {
       prefs.setBool('customTime2', false);
     }
+    if (prefs.getBool('recording') == null) {
+      prefs.setBool('recording', false);
+    }
+
+    if (prefs.getBool('continuous') == null) {
+      prefs.setBool('continuous', false);
+    }
     // if (DateTime.now().isAfter(date)) {}
     customTime1 = prefs.getBool('customTime1');
     customTime2 = prefs.getBool('customTime2');
@@ -60,6 +57,8 @@ class _SplashScreenState extends State<SplashScreen> {
     time1 = prefs.getInt('time1');
     time2 = prefs.getInt('time2');
     customTopics = prefs.getStringList('customTopics');
+    recording = prefs.getBool('recording');
+    continuous = prefs.getBool('continuous');
     // print(articles[0]);
   }
 
@@ -67,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     action = "";
-    Timer(Duration(milliseconds: 1500), () async {
+    Timer(Duration(milliseconds: 1200), () async {
       final QuickActions quickActions = QuickActions();
 
       quickActions.initialize((type) {
@@ -115,8 +114,6 @@ class _SplashScreenState extends State<SplashScreen> {
             topic1: topic1,
             topic2: topic2,
             topic3: topic3,
-            fontSize: 0.06,
-            maxLines: 1,
           );
         }));
       }
@@ -143,8 +140,6 @@ class _SplashScreenState extends State<SplashScreen> {
             topic1: topic1,
             topic2: topic2,
             topic3: topic3,
-            fontSize: 0.06,
-            maxLines: 1,
           );
         }));
       }
@@ -171,8 +166,6 @@ class _SplashScreenState extends State<SplashScreen> {
             topic1: topic1,
             topic2: topic2,
             topic3: topic3,
-            fontSize: 0.025,
-            maxLines: 7,
           );
         }));
       }

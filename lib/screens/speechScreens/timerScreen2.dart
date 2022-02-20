@@ -9,12 +9,10 @@ import '../../userSettings.dart';
 
 class TimerScreen2 extends StatefulWidget {
   final randomTopic;
-  final fontSize;
 
   const TimerScreen2({
     Key? key,
     this.randomTopic,
-    this.fontSize,
   }) : super(key: key);
 
   @override
@@ -52,15 +50,14 @@ class _TimerScreen2State extends State<TimerScreen2> {
                     "${widget.randomTopic}",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
-                        fontSize: MediaQuery.of(context).size.height *
-                            widget.fontSize,
+                        fontSize: MediaQuery.of(context).size.height * 0.06,
                         fontWeight: FontWeight.bold),
-                    maxLines: widget.randomTopic.toString().length < 3 ? 1 : 7,
+                    maxLines: widget.randomTopic.toString().length < 15 ? 1 : 3,
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.07),
                 Text(
-                  "Speech Time",
+                  !continuous! ? "Speech Time" : "Prep + Speech Time",
                   style: GoogleFonts.poppins(
                       fontSize: MediaQuery.of(context).size.height * 0.03),
                 ),
@@ -85,10 +82,6 @@ class _TimerScreen2State extends State<TimerScreen2> {
                   isReverse: true,
                   isReverseAnimation: true,
                   onComplete: () async {
-                    Navigator.pop(context);
-                    setState(() {
-                      Wakelock.disable();
-                    });
                     if (vibrate!) {
                       await Future.delayed(Duration(milliseconds: 500));
                       HapticFeedback.vibrate();
@@ -97,6 +90,10 @@ class _TimerScreen2State extends State<TimerScreen2> {
                       await Future.delayed(Duration(milliseconds: 500));
                       HapticFeedback.vibrate();
                     }
+                    setState(() {
+                      Wakelock.disable();
+                    });
+                    Navigator.pop(context);
                   },
                 ),
               ],

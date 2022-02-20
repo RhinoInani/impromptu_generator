@@ -1,6 +1,5 @@
 name: impromptu_generator2
 description: A flutter application built to practice impromtpu speeches following the NSDA format.
-authors: [Rohin Inani]
 version: 1.2.3
 
 environment:
@@ -9,32 +8,33 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: ^2.1.0
+  google_fonts: 2.1.1
   circular_countdown_timer: ^0.2.0
-  auto_size_text: ^3.0.0-nullsafety.0
+  auto_size_text: ^3.0.0
   url_launcher: ^6.0.9
   speech_to_text: ^4.2.2
-  share: ^2.0.4
+  share_plus: ^3.0.4
   wakelock: ^0.5.2
   shared_preferences: ^2.0.6
   quick_actions: ^0.6.0+3
-#  flutter_launcher_icons: ^0.9.0
-  #  flutter_launcher_name:
   cupertino_icons: ^1.0.3
+  permission_handler: ^8.2.0
+#  flutter_sound_lite: ^8.3.9
+#  path_provider: ^2.0.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter_icons:
-  android: "launcher_icon"
-  image_path_android: "assets/icon.png"
-  image_path_ios: "assets/logo_ios.png"
-  remove_alpha_ios: true
-  ios: true
-
-flutter_launcher_name:
-  name: "Impromptu Generator"
+#flutter_icons:
+#  android: "launcher_icon"
+#  image_path_android: "assets/icon.png"
+#  image_path_ios: "assets/logo_ios.png"
+#  remove_alpha_ios: true
+#  ios: true
+#
+#flutter_launcher_name:
+#  name: "Impromptu Generator"
 
 flutter:
   uses-material-design: true

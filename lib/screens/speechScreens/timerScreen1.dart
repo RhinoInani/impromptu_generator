@@ -16,16 +16,12 @@ class TimerScreen1 extends StatefulWidget {
   final String randomTopic;
   final String randomTopic2;
   final String randomTopic3;
-  final double fontSize;
-  final int maxLines;
 
   const TimerScreen1({
     Key? key,
     required this.randomTopic,
-    required this.fontSize,
     required this.randomTopic2,
     required this.randomTopic3,
-    required this.maxLines,
   }) : super(key: key);
 
   @override
@@ -35,9 +31,17 @@ class TimerScreen1 extends StatefulWidget {
 class _TimerScreen1State extends State<TimerScreen1> {
   CountDownController controller = CountDownController();
   bool _isPause = false;
+  late double minFontSize;
+
+  @override
+  void initState() {
+    // minFontSize = MediaQuery.of(context).size.height * 0.035;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    minFontSize = MediaQuery.of(context).size.height * 0.035;
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -61,8 +65,6 @@ class _TimerScreen1State extends State<TimerScreen1> {
                     MaterialPageRoute(builder: (context) {
                   return MidScreen(
                     randomTopic: widget.randomTopic,
-                    fontSize: widget.fontSize,
-                    lightning: false,
                   );
                 }));
               },
@@ -88,10 +90,9 @@ class _TimerScreen1State extends State<TimerScreen1> {
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.bold,
-                      fontSize:
-                          MediaQuery.of(context).size.height * widget.fontSize,
+                      fontSize: MediaQuery.of(context).size.height * 0.06,
                     ),
-                    maxLines: widget.randomTopic.toString().length < 3 ? 1 : 7,
+                    maxLines: widget.randomTopic.toString().length < 15 ? 1 : 3,
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.07),
@@ -127,8 +128,6 @@ class _TimerScreen1State extends State<TimerScreen1> {
                         MaterialPageRoute(builder: (context) {
                       return MidScreen(
                         randomTopic: widget.randomTopic,
-                        fontSize: widget.fontSize,
-                        lightning: false,
                       );
                     }));
                     if (vibrate!) {
@@ -195,8 +194,6 @@ class _TimerScreen1State extends State<TimerScreen1> {
                             topic1: widget.randomTopic,
                             topic2: widget.randomTopic2,
                             topic3: widget.randomTopic3,
-                            fontSize: widget.fontSize,
-                            maxLines: widget.maxLines,
                           );
                         }));
                       },
